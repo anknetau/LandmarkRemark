@@ -9,7 +9,7 @@
 import UIKit
 
 /// The top-level coordinator for the whole app.
-/// This allows the App Delegate to know nothing about the initial view controller and simplifies
+/// This allows the AppDelegate to know nothing about the initial view controller and simplifies
 /// the logic in the app delegate, avoiding the classic "big/complex app delegate".
 struct AppCoordinator : Coordinator {
     let window: UIWindow

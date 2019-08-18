@@ -16,6 +16,10 @@
 		893EA3AB23092DF900A03E77 /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 893EA3A923092DF900A03E77 /* MapViewController.xib */; };
 		893EA3AE230935E200A03E77 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3AD230935E200A03E77 /* Coordinator.swift */; };
 		893EA3B0230935FD00A03E77 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3AF230935FD00A03E77 /* AppCoordinator.swift */; };
+		893EA3B42309414D00A03E77 /* Remark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3B32309414D00A03E77 /* Remark.swift */; };
+		893EA3B7230942B000A03E77 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3B6230942B000A03E77 /* MapViewModel.swift */; };
+		893EA3BA2309549800A03E77 /* MockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3B92309549800A03E77 /* MockService.swift */; };
+		893EA3BC230954CA00A03E77 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3BB230954CA00A03E77 /* Service.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +56,10 @@
 		893EA3A923092DF900A03E77 /* MapViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapViewController.xib; sourceTree = "<group>"; };
 		893EA3AD230935E200A03E77 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		893EA3AF230935FD00A03E77 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		893EA3B32309414D00A03E77 /* Remark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Remark.swift; sourceTree = "<group>"; };
+		893EA3B6230942B000A03E77 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		893EA3B92309549800A03E77 /* MockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockService.swift; sourceTree = "<group>"; };
+		893EA3BB230954CA00A03E77 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +110,9 @@
 		893EA376230907E600A03E77 /* Landmark Remark */ = {
 			isa = PBXGroup;
 			children = (
+				893EA3B82309538700A03E77 /* Service */,
+				893EA3B5230942A400A03E77 /* View Model */,
+				893EA3B22309412E00A03E77 /* Model */,
 				893EA3B123093AB900A03E77 /* View Controller */,
 				893EA3AC230935D000A03E77 /* Coordinator */,
 				893EA377230907E600A03E77 /* AppDelegate.swift */,
@@ -147,6 +158,31 @@
 				893EA3A923092DF900A03E77 /* MapViewController.xib */,
 			);
 			path = "View Controller";
+			sourceTree = "<group>";
+		};
+		893EA3B22309412E00A03E77 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				893EA3B32309414D00A03E77 /* Remark.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		893EA3B5230942A400A03E77 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				893EA3B6230942B000A03E77 /* MapViewModel.swift */,
+			);
+			path = "View Model";
+			sourceTree = "<group>";
+		};
+		893EA3B82309538700A03E77 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				893EA3B92309549800A03E77 /* MockService.swift */,
+				893EA3BB230954CA00A03E77 /* Service.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -280,10 +316,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				893EA3B42309414D00A03E77 /* Remark.swift in Sources */,
+				893EA3BC230954CA00A03E77 /* Service.swift in Sources */,
 				893EA378230907E600A03E77 /* AppDelegate.swift in Sources */,
+				893EA3BA2309549800A03E77 /* MockService.swift in Sources */,
 				893EA3B0230935FD00A03E77 /* AppCoordinator.swift in Sources */,
 				893EA3AA23092DF900A03E77 /* MapViewController.swift in Sources */,
 				893EA3AE230935E200A03E77 /* Coordinator.swift in Sources */,
+				893EA3B7230942B000A03E77 /* MapViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
