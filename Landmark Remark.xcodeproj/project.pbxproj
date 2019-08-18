@@ -8,12 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		893EA378230907E600A03E77 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA377230907E600A03E77 /* AppDelegate.swift */; };
-		893EA37A230907E600A03E77 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA379230907E600A03E77 /* ViewController.swift */; };
-		893EA37D230907E600A03E77 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 893EA37B230907E600A03E77 /* Main.storyboard */; };
 		893EA37F230907E700A03E77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 893EA37E230907E700A03E77 /* Assets.xcassets */; };
 		893EA382230907E700A03E77 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 893EA380230907E700A03E77 /* LaunchScreen.storyboard */; };
 		893EA38D230907E700A03E77 /* Landmark_RemarkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA38C230907E700A03E77 /* Landmark_RemarkTests.swift */; };
 		893EA398230907E700A03E77 /* Landmark_RemarkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA397230907E700A03E77 /* Landmark_RemarkUITests.swift */; };
+		893EA3AA23092DF900A03E77 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3A823092DF900A03E77 /* MapViewController.swift */; };
+		893EA3AB23092DF900A03E77 /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 893EA3A923092DF900A03E77 /* MapViewController.xib */; };
+		893EA3AE230935E200A03E77 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3AD230935E200A03E77 /* Coordinator.swift */; };
+		893EA3B0230935FD00A03E77 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3AF230935FD00A03E77 /* AppCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,8 +38,6 @@
 /* Begin PBXFileReference section */
 		893EA374230907E600A03E77 /* Landmark Remark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Landmark Remark.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		893EA377230907E600A03E77 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		893EA379230907E600A03E77 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		893EA37C230907E600A03E77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		893EA37E230907E700A03E77 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		893EA381230907E700A03E77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		893EA383230907E700A03E77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -47,6 +47,11 @@
 		893EA393230907E700A03E77 /* Landmark RemarkUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Landmark RemarkUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		893EA397230907E700A03E77 /* Landmark_RemarkUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landmark_RemarkUITests.swift; sourceTree = "<group>"; };
 		893EA399230907E700A03E77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		893EA3A523090D3000A03E77 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		893EA3A823092DF900A03E77 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		893EA3A923092DF900A03E77 /* MapViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapViewController.xib; sourceTree = "<group>"; };
+		893EA3AD230935E200A03E77 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		893EA3AF230935FD00A03E77 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,12 +102,13 @@
 		893EA376230907E600A03E77 /* Landmark Remark */ = {
 			isa = PBXGroup;
 			children = (
+				893EA3B123093AB900A03E77 /* View Controller */,
+				893EA3AC230935D000A03E77 /* Coordinator */,
 				893EA377230907E600A03E77 /* AppDelegate.swift */,
-				893EA379230907E600A03E77 /* ViewController.swift */,
-				893EA37B230907E600A03E77 /* Main.storyboard */,
 				893EA37E230907E700A03E77 /* Assets.xcassets */,
 				893EA380230907E700A03E77 /* LaunchScreen.storyboard */,
 				893EA383230907E700A03E77 /* Info.plist */,
+				893EA3A523090D3000A03E77 /* README.md */,
 			);
 			path = "Landmark Remark";
 			sourceTree = "<group>";
@@ -123,6 +129,24 @@
 				893EA399230907E700A03E77 /* Info.plist */,
 			);
 			path = "Landmark RemarkUITests";
+			sourceTree = "<group>";
+		};
+		893EA3AC230935D000A03E77 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				893EA3AF230935FD00A03E77 /* AppCoordinator.swift */,
+				893EA3AD230935E200A03E77 /* Coordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		893EA3B123093AB900A03E77 /* View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				893EA3A823092DF900A03E77 /* MapViewController.swift */,
+				893EA3A923092DF900A03E77 /* MapViewController.xib */,
+			);
+			path = "View Controller";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -230,8 +254,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				893EA382230907E700A03E77 /* LaunchScreen.storyboard in Resources */,
+				893EA3AB23092DF900A03E77 /* MapViewController.xib in Resources */,
 				893EA37F230907E700A03E77 /* Assets.xcassets in Resources */,
-				893EA37D230907E600A03E77 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,8 +280,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				893EA37A230907E600A03E77 /* ViewController.swift in Sources */,
 				893EA378230907E600A03E77 /* AppDelegate.swift in Sources */,
+				893EA3B0230935FD00A03E77 /* AppCoordinator.swift in Sources */,
+				893EA3AA23092DF900A03E77 /* MapViewController.swift in Sources */,
+				893EA3AE230935E200A03E77 /* Coordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,14 +319,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		893EA37B230907E600A03E77 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				893EA37C230907E600A03E77 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		893EA380230907E700A03E77 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -363,7 +381,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -418,7 +436,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -441,7 +459,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "au.com.kievsky.Landmark-Remark";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -458,7 +476,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "au.com.kievsky.Landmark-Remark";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
