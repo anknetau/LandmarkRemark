@@ -16,6 +16,7 @@ class RemarkAnnotation: NSObject, MKAnnotation, PinStyleContainer {
     var remark: Remark
     var title: String?
     var subtitle: String?
+    var isOwn = false
     init(coordinate: CLLocationCoordinate2D, remark: Remark) {
         self.coordinate = coordinate
         self.remark = remark

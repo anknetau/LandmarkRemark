@@ -20,7 +20,9 @@ struct MapCoordinator: Coordinator {
     }
     func start() {
         let mapViewController = MapViewController()
-        mapViewController.viewModel = MapViewModel(username: username, service: APIService(), locationManager: MockLocationManager())
+        mapViewController.viewModel = MapViewModel(username: username, service: APIService(), locationManager: PhysicalLocationManager())
+        // To see mock objects in action, use the following line instead of the above:
+        // mapViewController.viewModel = MapViewModel(username: username, service: MockService(), locationManager: MockLocationManager())
         parentViewController.present(mapViewController, animated: true, completion: nil)
     }
 }

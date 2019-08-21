@@ -38,7 +38,9 @@ class PhysicalLocationManager: NSObject, LocationManager {
 extension PhysicalLocationManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         // If the location has changed, update the underlying object and let the delegate know.
-        if let location = locations.last {
+        // We also only care about locations that are accurate to 20m or less.
+        let closeLocations = locations.filter { $0.horizontalAccuracy < 20 }
+        if let location = closeLocations.last {
             currentLocation = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
             delegate?.didUpdateLocation()
         }

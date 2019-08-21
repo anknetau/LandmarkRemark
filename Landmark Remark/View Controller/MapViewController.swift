@@ -19,6 +19,8 @@ class MapViewController: UIViewController {
     @IBOutlet weak var jumpToLocationButton: UIButton!
     @IBOutlet weak var expandButton: UIButton!
     
+    let searchController = UISearchController(searchResultsController: nil)
+
     var viewModel: MapViewModel?
     
     // Ensure user has seen their location, as per requirements.
@@ -35,14 +37,27 @@ class MapViewController: UIViewController {
         // Ensure tracking is started now, so the access request is seen on this screen.
         viewModel?.startTrackingUser()
         viewModel?.refresh()
+        
+        searchBar.delegate = self
+
+        // TODO
+//        searchController.searchBar = searchBar
+//        searchController.searchResultsUpdater = self
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        // Ask for permission if it's not availablee
+        guard viewModel?.locationManager.locationAccessWasDenied != true else {
+            showLocationAccessError()
+            return
+        }
     }
     
     // MARK: Show 'refreshing' state in UI
     
+    // While making refresh API calls, show the user a loading state
     func startRefreshingUI() {
         searchBar.isUserInteractionEnabled = false
         mapView.isUserInteractionEnabled = false
@@ -53,6 +68,7 @@ class MapViewController: UIViewController {
         activityIndicator.startAnimating()
     }
     
+    // Set the UI to be used again
     func finishRefreshingUI() {
         searchBar.isUserInteractionEnabled = true
         mapView.isUserInteractionEnabled = true
@@ -63,6 +79,24 @@ class MapViewController: UIViewController {
         activityIndicator.stopAnimating()
     }
     
+    // Show an alert asking the user to enable location access
+    func showLocationAccessError() {
+        let locationPermissionCoordinator = LocationPermissionErrorCoordinator(parentViewController: self, message: "Please allow location access in Settings in order to use this app") { result in
+            switch (result) {
+            case .changeSettings:
+                let settingsUrl = URL(string: UIApplication.openSettingsURLString)
+                if let url = settingsUrl {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    //                            UIApplication.sharedApplication().openURL(url)
+                }
+            case .ignore:
+                // User ignored the request, so nothing to do.
+                ()
+            }
+        }
+        locationPermissionCoordinator.start()
+    }
+
     // MARK: IBActions
     
     // Reload button
@@ -73,11 +107,22 @@ class MapViewController: UIViewController {
     
     // Plus button pressed
     @IBAction func addPressed(_ sender: Any) {
-        // Ensure we know where the user is
-        guard let userLocation = viewModel?.userLocation else {
-            // TODO - show error
+        guard let viewModel = viewModel else { return }
+        
+        // If not given access, show specific error
+        guard !viewModel.locationManager.locationAccessWasDenied else {
+            showLocationAccessError()
             return
         }
+        
+        // Ensure we know where the user is
+        guard let userLocation = viewModel.userLocation else {
+            // If we don't, show an error
+            let errorCoordinator = ErrorCoordinator(parentViewController: self, message: "Location not available", completionHandler: nil)
+            errorCoordinator.start()
+            return
+        }
+
         // Call the coordinator to show the prompt to add a note
         let addNoteCoordinator = NoteCoordinator(parentViewController: self, defaultContent: nil, completionHandler: { [weak self] result in
             guard let weakSelf = self else { return }
@@ -99,11 +144,22 @@ class MapViewController: UIViewController {
     
     // Called when the user presses the compass icon
     @IBAction func jumpToLocationPressed(_ sender: Any) {
-        // Ensure we know where the user is
-        guard let userLocation = viewModel?.userLocation else {
-            // TODO - show error
+        guard let viewModel = viewModel else { return }
+        
+        // If not given access, show specific error
+        guard !viewModel.locationManager.locationAccessWasDenied else {
+            showLocationAccessError()
             return
         }
+
+        // Ensure we know where the user is
+        guard viewModel.userLocation != nil else {
+            // If we don't, show an error
+            let errorCoordinator = ErrorCoordinator(parentViewController: self, message: "Location not available", completionHandler: nil)
+            errorCoordinator.start()
+            return
+        }
+
         guard let locationAnnotation = mapView.annotations.first(where: { $0 is UserLocationAnnotation}) else {
             return
         }
@@ -117,6 +173,18 @@ class MapViewController: UIViewController {
     }
 }
 
+// MARK: UISearchBarDelegate
+extension MapViewController : UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    }
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        // TODO
+    }
+}
+
 // MARK: MKMapViewDelegate
 
 extension MapViewController : MKMapViewDelegate {
@@ -126,7 +194,7 @@ extension MapViewController : MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
         // Ensure we dequeue a reusable view if possible, for performance reasons.
-        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: Constant.pinAnnotationReuseIdentifier) as? MKPinAnnotationView ?? MKPinAnnotationView(annotation: annotation, reuseIdentifier: Constant.pinAnnotationReuseIdentifier)
+        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: Constant.pinAnnotationReuseIdentifier) as? MKAnnotationView ?? MKAnnotationView(annotation: annotation, reuseIdentifier: Constant.pinAnnotationReuseIdentifier)
         annotationView.canShowCallout = true
         
         // If this is a note annotation
@@ -138,7 +206,8 @@ extension MapViewController : MKMapViewDelegate {
 
         // Setup the pin colour
         if let pinStyleAnnotation = annotation as? PinStyleContainer {
-            annotationView.pinTintColor = pinStyleAnnotation.pinStyle.colour
+            annotationView.image = pinStyleAnnotation.pinStyle.image
+            annotationView.tintColor = pinStyleAnnotation.pinStyle.colour
         }
 
         annotationView.canShowCallout = true
@@ -180,6 +249,7 @@ extension MapViewController : MKMapViewDelegate {
             }))
         }
         
+        // Cancel button
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
             alert.dismiss(animated: true, completion: nil)
         }))
@@ -211,11 +281,13 @@ extension MapViewController : MapViewModelDelegate {
             mapView.addAnnotation(userLocationAnnotation)
         }
         // Add all current remarks
-        mapView.addAnnotations(viewModel.currentRemarks.asAnnotations())
+        mapView.addAnnotations(viewModel.currentRemarks.asAnnotations(for: viewModel.username))
     }
     
     func didEncounterError(description: String) {
-        // TODO - WIP
+        let errorCoordinator = ErrorCoordinator(parentViewController: self, message: description, completionHandler: nil)
+        errorCoordinator.start()
+        return
     }
     
     func userDidChangeLocation() {
@@ -246,11 +318,12 @@ extension MapViewController : MapViewModelDelegate {
 // MARK: Remark Utilities
 
 extension Array where Element == Remark {
-    func asAnnotations() -> [MKAnnotation] {
+    func asAnnotations(for username: String) -> [MKAnnotation] {
         return self.map { remark in
             let annotation = RemarkAnnotation(coordinate: remark.asCoordinate(), remark: remark)
             annotation.title = remark.user
             annotation.subtitle = remark.note
+            annotation.isOwn = remark.user == username
             return annotation
         }
     }

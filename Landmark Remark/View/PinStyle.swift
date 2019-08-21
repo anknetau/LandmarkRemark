@@ -18,20 +18,6 @@ enum PinStyle {
     case ownRemark
     // Pin style used to display a remark from another user
     case otherRemark
-
-    // Keep track of the current colour being used
-    private static var colourIndex = 0
-    // Return the next available colour for a pin
-    static var nextColour: UIColor {
-        get {
-            // Simply loop around the available colours
-            colourIndex = colourIndex + 1
-            if colourIndex == Theme.otherRemarkColours.count {
-                colourIndex = 0
-            }
-            return Theme.otherRemarkColours[colourIndex]
-        }
-    }
     
     // Given a PinStyle, what should we use for its colour?
     var colour: UIColor {
@@ -41,7 +27,19 @@ enum PinStyle {
         case .ownRemark:
             return Theme.ownRemarkColour
         case .otherRemark:
-            return PinStyle.nextColour
+            return Theme.otherRemarkColour
+        }
+    }
+    
+    // Which image to use, or nil if default
+    var image: UIImage? {
+        switch (self) {
+        case .userLocation:
+            return Theme.locationImage
+        case .ownRemark:
+            return Theme.pinOwnImage
+        case .otherRemark:
+            return Theme.pinOtherImage
         }
     }
 }
@@ -60,6 +58,6 @@ extension UserLocationAnnotation {
 
 extension RemarkAnnotation {
     var pinStyle: PinStyle {
-        return .ownRemark
+        return isOwn ? .ownRemark : .otherRemark
     }
 }

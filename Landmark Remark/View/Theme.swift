@@ -16,12 +16,11 @@ struct Theme {
 
     static let userLocationColour = UIColor.blue
     static let ownRemarkColour = UIColor.red
-    static let otherRemarkColours: [UIColor] = [
-        UIColor.green,
-        UIColor.yellow,
-        UIColor.orange,
-        UIColor.purple,
-        UIColor.brown,
-        UIColor.lightGray
-    ]
+    static let otherRemarkColour = UIColor.green
+    
+    // Images for pin and user location
+
+    static let locationImage = UIImage(named: "location")
+    static let pinOwnImage = UIImage(named: "pin-own")
+    static let pinOtherImage = UIImage(named: "pin-other")
 }
