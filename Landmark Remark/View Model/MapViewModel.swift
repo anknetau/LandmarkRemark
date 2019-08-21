@@ -20,6 +20,8 @@ protocol MapViewModelDelegate : AnyObject {
     func didStartRefreshing()
     /// Called as the refresh API call finish
     func didEndRefreshing()
+    /// Called when filtered results are refreshed
+    func filteredResultsAvailable()
 }
 
 /// The View Model to provide data to the MapViewController.
@@ -37,6 +39,10 @@ class MapViewModel {
     var username: String
     /// A list of the remarks to display
     var currentRemarks: [Remark] = []
+    /// A list of the remarks filtered down by search
+    var filteredRemarks: [Remark] = []
+    /// A simple way to stop search results from overriding each other, in th absence of Rx
+    private var searchIdentifier = 0
     /// The service that will be used to perform remote API updates.
     var service: Service
     /// Return the user's current location or nil if not known.
@@ -114,6 +120,39 @@ class MapViewModel {
                 }
             }
         }
+    }
+    
+    // Performs search, then filters location down to the searched term
+    // Pass in nil to clear search
+    func search(string: String?) {
+        filteredRemarks = []
+        guard let string = string else {
+            refresh()
+            return
+        }
+        
+        searchIdentifier = searchIdentifier + 1
+        search(searchIdentifier: searchIdentifier, string: string)
+    }
+    
+    // Perform the async search itself
+    private func search(searchIdentifier: Int, string: String) {
+        service.search(string: string, completionHandler: { [weak self] result in
+            DispatchQueue.main.async {
+                // if the search is no longer current, bail
+                if self?.searchIdentifier != searchIdentifier {
+                    return
+                }
+                switch (result) {
+                case .failure(_):
+                    // Note: this should be debounced to stop the user from receiving too many alerts
+                    self?.delegate?.didEncounterError(description: "Error while searching")
+                case .success(let remarks):
+                    self?.filteredRemarks = remarks
+                    self?.delegate?.filteredResultsAvailable()
+                }
+            }
+        })
         
     }
 }

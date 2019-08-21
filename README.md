@@ -10,6 +10,7 @@ Created by Andres N. Kievsky.
 - MVVM: The app follows the modern MVVM pattern, with delegates for two way binding. In other projects, FRP can be used to simplify the binding.
 - Coordinators: some simple examples of coordinators are used. These allow view controllers remain isolated from the methods used to display them.
 - Service-based architecture: the networking layer is built on a service architecture which would normally be injected into ViewModels.
+- For back-end, Kumulos was used, in a combination between REST and API endpoints. API is used for search, REST for CRUD-style access.
 - Royalty-free images were taken from unsplash.com:
 - Photo by Laura Cros on Unsplash
 - Button images were taken from https://uxwing.com/
@@ -27,7 +28,7 @@ Created by Andres N. Kievsky.
 3. Results screen: searching for text implies the existence of a screen that can display a list of results, either on the map or in a separate list. A specific result can then be examined within the results.
 4. Locality issues: a user may be interested in seeing results at the neighborhood level rather than a national or global level. Displaying both at the same time may trade resolution in the local level for completeness - and vice versa. Therefore, there's an expand button which will focus on all annotations, and a location (compass) button which will focus on the user's location.
 5. Sign up and login: each user has their own username, coupled with a password to access the system. Users should also be able to sign up within the app. For simplicity, the app has a single screen that allows the user to enter a device-only name. No signup or login has been implemented for this test.
-6. Update and delete: Being able to merely list and add locations is rarely sufficient for a user, update/delete functionality should exist, too, so users are able to fix errors. Ownership of the note should be used as a simple way to control access.
+6. Update and delete: Being able to merely list and add locations is rarely sufficient for a user, update/delete functionality should exist, too, so users are able to fix errors. Ownership of the note should be used as a simple way to control deletion access - however, in this simple implementation, editing is open.
 
 ## Time Log
 

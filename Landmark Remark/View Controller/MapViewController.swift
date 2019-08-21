@@ -14,12 +14,13 @@ class MapViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var reloadButton: UIButton!
-    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var jumpToLocationButton: UIButton!
     @IBOutlet weak var expandButton: UIButton!
-    
     let searchController = UISearchController(searchResultsController: nil)
+
+    // View to contain the searchbar
+    @IBOutlet weak var viewForSearchBar: UIView!
 
     var viewModel: MapViewModel?
     
@@ -38,9 +39,18 @@ class MapViewController: UIViewController {
         viewModel?.startTrackingUser()
         viewModel?.refresh()
         
-        searchBar.delegate = self
+        // Setup the search bar and controller
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.keyboardType = .asciiCapable
+        searchController.searchBar.autocorrectionType = .no
+        searchController.searchBar.isSecureTextEntry = false
+        searchController.searchBar.autocapitalizationType = .none
+        
+        viewForSearchBar.addSubview(searchController.searchBar)
+//        searchBar.delegate = self
 
         // TODO
+        searchController
 //        searchController.searchBar = searchBar
 //        searchController.searchResultsUpdater = self
     }
@@ -59,7 +69,8 @@ class MapViewController: UIViewController {
     
     // While making refresh API calls, show the user a loading state
     func startRefreshingUI() {
-        searchBar.isUserInteractionEnabled = false
+        searchController.searchBar.resignFirstResponder()
+        searchController.searchBar.isUserInteractionEnabled = false
         mapView.isUserInteractionEnabled = false
         addButton.isEnabled = false
         reloadButton.isEnabled = false
@@ -70,7 +81,7 @@ class MapViewController: UIViewController {
     
     // Set the UI to be used again
     func finishRefreshingUI() {
-        searchBar.isUserInteractionEnabled = true
+        searchController.searchBar.isUserInteractionEnabled = true
         mapView.isUserInteractionEnabled = true
         addButton.isEnabled = true
         reloadButton.isEnabled = true
@@ -194,7 +205,7 @@ extension MapViewController : MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
         // Ensure we dequeue a reusable view if possible, for performance reasons.
-        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: Constant.pinAnnotationReuseIdentifier) as? MKAnnotationView ?? MKAnnotationView(annotation: annotation, reuseIdentifier: Constant.pinAnnotationReuseIdentifier)
+        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: Constant.pinAnnotationReuseIdentifier) ?? MKAnnotationView(annotation: annotation, reuseIdentifier: Constant.pinAnnotationReuseIdentifier)
         annotationView.canShowCallout = true
         
         // If this is a note annotation
@@ -312,7 +323,26 @@ extension MapViewController : MapViewModelDelegate {
             hasUserSeenLocation = true
         }
     }
-    
+
+    func filteredResultsAvailable() {
+        guard let viewModel = viewModel else { return }
+        // Is there a search on?
+        if searchController.searchBar.text != nil {
+            // Clear all annotations
+            mapView.removeAnnotations(mapView.annotations)
+            // Add all filtered remarks
+            mapView.addAnnotations(viewModel.filteredRemarks.asAnnotations(for: viewModel.username))
+            mapView.showAnnotations(mapView.annotations, animated: true)
+        }
+    }
+}
+
+// MARK: UISearchResultsUpdating
+
+extension MapViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        viewModel?.search(string: searchController.searchBar.text ?? "")
+    }
 }
 
 // MARK: Remark Utilities

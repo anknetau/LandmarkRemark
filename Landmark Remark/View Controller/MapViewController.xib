@@ -18,8 +18,8 @@
                 <outlet property="jumpToLocationButton" destination="1Y6-np-Q5F" id="uNC-Xg-d1q"/>
                 <outlet property="mapView" destination="fxB-bf-Agt" id="Suf-xb-8F2"/>
                 <outlet property="reloadButton" destination="XDW-t4-y6v" id="6K7-c1-pPO"/>
-                <outlet property="searchBar" destination="rYr-k6-HHA" id="EZ0-9g-Nh1"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="viewForSearchBar" destination="ooU-v4-l1t" id="0EH-KC-f3D"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -27,14 +27,13 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <searchBar contentMode="redraw" placeholder="Search" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rYr-k6-HHA">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ooU-v4-l1t">
                     <rect key="frame" x="0.0" y="44" width="414" height="56"/>
-                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
-                    <scopeButtonTitles>
-                        <string>Title</string>
-                        <string>Title</string>
-                    </scopeButtonTitles>
-                </searchBar>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="56" id="gbB-9N-s7g"/>
+                    </constraints>
+                </view>
                 <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" rotateEnabled="NO" pitchEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fxB-bf-Agt">
                     <rect key="frame" x="0.0" y="100" width="414" height="762"/>
                 </mapView>
@@ -81,22 +80,22 @@
                 <constraint firstItem="lbe-3n-sIb" firstAttribute="leading" secondItem="XDW-t4-y6v" secondAttribute="trailing" constant="32" id="9sg-dV-Rtp"/>
                 <constraint firstItem="fxB-bf-Agt" firstAttribute="leading" secondItem="sCt-R3-szs" secondAttribute="leading" id="9ye-d6-pKT"/>
                 <constraint firstItem="QPj-XI-uVG" firstAttribute="leading" secondItem="sCt-R3-szs" secondAttribute="leading" id="ADp-h0-V9S"/>
-                <constraint firstItem="fxB-bf-Agt" firstAttribute="top" secondItem="rYr-k6-HHA" secondAttribute="bottom" id="Afb-Ya-5Fv"/>
                 <constraint firstItem="V3X-Ie-Cv3" firstAttribute="centerX" secondItem="fxB-bf-Agt" secondAttribute="centerX" id="GLU-j9-LKy"/>
+                <constraint firstItem="fxB-bf-Agt" firstAttribute="top" secondItem="ooU-v4-l1t" secondAttribute="bottom" id="GR8-Jd-axT"/>
                 <constraint firstItem="fxB-bf-Agt" firstAttribute="width" secondItem="sCt-R3-szs" secondAttribute="width" id="Ioh-r5-m8i"/>
-                <constraint firstItem="rYr-k6-HHA" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="KeF-wD-goB"/>
-                <constraint firstItem="rYr-k6-HHA" firstAttribute="leading" secondItem="sCt-R3-szs" secondAttribute="leading" id="KfD-rZ-BU7"/>
                 <constraint firstItem="QPj-XI-uVG" firstAttribute="top" secondItem="sCt-R3-szs" secondAttribute="bottom" id="Me2-BC-28U"/>
                 <constraint firstItem="1Y6-np-Q5F" firstAttribute="leading" secondItem="g1I-cE-Gld" secondAttribute="trailing" constant="32" id="PPy-RD-gXQ"/>
                 <constraint firstItem="QPj-XI-uVG" firstAttribute="top" secondItem="1Y6-np-Q5F" secondAttribute="bottom" constant="12" id="PSA-Sn-E80"/>
+                <constraint firstItem="ooU-v4-l1t" firstAttribute="leading" secondItem="sCt-R3-szs" secondAttribute="leading" id="T8v-Fc-Vsn"/>
+                <constraint firstItem="ooU-v4-l1t" firstAttribute="top" secondItem="sCt-R3-szs" secondAttribute="top" id="VPz-BW-ahq"/>
                 <constraint firstItem="lbe-3n-sIb" firstAttribute="trailing" secondItem="fxB-bf-Agt" secondAttribute="trailing" constant="-12" id="Vol-WK-UKL"/>
                 <constraint firstItem="V3X-Ie-Cv3" firstAttribute="centerY" secondItem="fxB-bf-Agt" secondAttribute="centerY" id="Vxh-HG-O6B"/>
                 <constraint firstAttribute="bottom" secondItem="QPj-XI-uVG" secondAttribute="bottom" id="Zam-AE-Eaq"/>
                 <constraint firstItem="QPj-XI-uVG" firstAttribute="top" secondItem="fxB-bf-Agt" secondAttribute="bottom" id="coT-n0-JJ7"/>
                 <constraint firstItem="QPj-XI-uVG" firstAttribute="top" secondItem="XDW-t4-y6v" secondAttribute="bottom" constant="12" id="eSa-SM-8mz"/>
-                <constraint firstItem="rYr-k6-HHA" firstAttribute="top" secondItem="sCt-R3-szs" secondAttribute="top" id="n6T-dY-vtc"/>
                 <constraint firstItem="QPj-XI-uVG" firstAttribute="top" secondItem="lbe-3n-sIb" secondAttribute="bottom" constant="12" id="q78-xw-kCK"/>
                 <constraint firstItem="QPj-XI-uVG" firstAttribute="width" secondItem="sCt-R3-szs" secondAttribute="width" id="qqc-XJ-xPB"/>
+                <constraint firstItem="ooU-v4-l1t" firstAttribute="width" secondItem="sCt-R3-szs" secondAttribute="width" id="yXZ-HZ-ALR"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="sCt-R3-szs"/>
             <point key="canvasLocation" x="47.826086956521742" y="35.491071428571423"/>

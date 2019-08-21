@@ -127,7 +127,7 @@ class APIService : Service {
         
         // Setup search value with www-form-encoded.
         let encodedString = string.formEncoded()
-        request.httpBody = "search=\(encodedString)".data(using: .utf8)
+        request.httpBody = "params[string]=\(encodedString)".data(using: .utf8)
         request.setValue(Constant.formUrlEncoded, forHTTPHeaderField: Constant.contentType)
         
         let dataTask = URLSession.shared.dataTask(with: request) { (data, response, error) in
