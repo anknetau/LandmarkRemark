@@ -23,5 +23,4 @@ protocol Service {
 enum ServiceError : Error {
     case internalError
     case responseError
-    case jsonDecoderError
 }

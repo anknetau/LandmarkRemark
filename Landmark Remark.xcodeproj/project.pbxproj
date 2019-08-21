@@ -20,6 +20,13 @@
 		893EA3B7230942B000A03E77 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3B6230942B000A03E77 /* MapViewModel.swift */; };
 		893EA3BA2309549800A03E77 /* MockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3B92309549800A03E77 /* MockService.swift */; };
 		893EA3BC230954CA00A03E77 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3BB230954CA00A03E77 /* Service.swift */; };
+		893EA3C22309F71F00A03E77 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3C12309F71F00A03E77 /* MockData.swift */; };
+		893EA3C32309F71F00A03E77 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3C12309F71F00A03E77 /* MockData.swift */; };
+		893EA3C42309F71F00A03E77 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3C12309F71F00A03E77 /* MockData.swift */; };
+		893EA3C62309FB0100A03E77 /* PinStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3C52309FB0100A03E77 /* PinStyle.swift */; };
+		893EA3CB2309FF1B00A03E77 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3CA2309FF1B00A03E77 /* Theme.swift */; };
+		893EA3CF230CC28C00A03E77 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3CE230CC28C00A03E77 /* APIService.swift */; };
+		893EA3D5230CE6D700A03E77 /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3D4230CE6D700A03E77 /* SearchResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +67,11 @@
 		893EA3B6230942B000A03E77 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		893EA3B92309549800A03E77 /* MockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockService.swift; sourceTree = "<group>"; };
 		893EA3BB230954CA00A03E77 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		893EA3C12309F71F00A03E77 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
+		893EA3C52309FB0100A03E77 /* PinStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinStyle.swift; sourceTree = "<group>"; };
+		893EA3CA2309FF1B00A03E77 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		893EA3CE230CC28C00A03E77 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		893EA3D4230CE6D700A03E77 /* SearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +122,7 @@
 		893EA376230907E600A03E77 /* Landmark Remark */ = {
 			isa = PBXGroup;
 			children = (
+				893EA3C92309FF0D00A03E77 /* View */,
 				893EA3B82309538700A03E77 /* Service */,
 				893EA3B5230942A400A03E77 /* View Model */,
 				893EA3B22309412E00A03E77 /* Model */,
@@ -181,8 +194,20 @@
 			children = (
 				893EA3B92309549800A03E77 /* MockService.swift */,
 				893EA3BB230954CA00A03E77 /* Service.swift */,
+				893EA3CE230CC28C00A03E77 /* APIService.swift */,
+				893EA3C12309F71F00A03E77 /* MockData.swift */,
+				893EA3D4230CE6D700A03E77 /* SearchResponse.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		893EA3C92309FF0D00A03E77 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				893EA3CA2309FF1B00A03E77 /* Theme.swift */,
+				893EA3C52309FB0100A03E77 /* PinStyle.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -316,14 +341,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				893EA3D5230CE6D700A03E77 /* SearchResponse.swift in Sources */,
 				893EA3B42309414D00A03E77 /* Remark.swift in Sources */,
 				893EA3BC230954CA00A03E77 /* Service.swift in Sources */,
+				893EA3C62309FB0100A03E77 /* PinStyle.swift in Sources */,
 				893EA378230907E600A03E77 /* AppDelegate.swift in Sources */,
 				893EA3BA2309549800A03E77 /* MockService.swift in Sources */,
 				893EA3B0230935FD00A03E77 /* AppCoordinator.swift in Sources */,
 				893EA3AA23092DF900A03E77 /* MapViewController.swift in Sources */,
 				893EA3AE230935E200A03E77 /* Coordinator.swift in Sources */,
+				893EA3CB2309FF1B00A03E77 /* Theme.swift in Sources */,
 				893EA3B7230942B000A03E77 /* MapViewModel.swift in Sources */,
+				893EA3CF230CC28C00A03E77 /* APIService.swift in Sources */,
+				893EA3C22309F71F00A03E77 /* MockData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,6 +362,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				893EA38D230907E700A03E77 /* Landmark_RemarkTests.swift in Sources */,
+				893EA3C32309F71F00A03E77 /* MockData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,6 +371,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				893EA398230907E700A03E77 /* Landmark_RemarkUITests.swift in Sources */,
+				893EA3C42309F71F00A03E77 /* MockData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
