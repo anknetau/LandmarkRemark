@@ -70,6 +70,21 @@ class MapViewModel {
     func startTrackingUser() {
         locationManager.startTrackingUser()
     }
+    
+    // Adds a new remark. Will trigger a refresh.
+    func addRemark(remark: Remark) {
+        service.add(remark: remark) { [weak self] result in
+            // Ensure we are in the UI thread
+            DispatchQueue.main.async {
+                switch (result) {
+                case .failure(_):
+                    self?.delegate?.didEncounterError(description: "Could not add note")
+                case .success(_):
+                    self?.refresh()
+                }
+            }
+        }
+    }
 }
 
 /// Delegate call to track when the user has moved.

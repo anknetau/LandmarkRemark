@@ -12,13 +12,13 @@ import UIKit
 
 struct AddNoteCoordinator: Coordinator {
     var parentViewController: UIViewController?
-    init(parentViewController: UIViewController) {
+    var completionHandler: (NoteResult) -> Void
+    init(parentViewController: UIViewController, completionHandler: @escaping (NoteResult) -> Void) {
         self.parentViewController = parentViewController
+        self.completionHandler = completionHandler
     }
     func start() {
-        let viewController = AlertHelper.singleNoteViewController { result in
-            // TODO
-        }
+        let viewController = AlertHelper.singleNoteViewController(completionHandler: completionHandler)
         parentViewController?.present(viewController, animated: true, completion: nil)
     }
 }

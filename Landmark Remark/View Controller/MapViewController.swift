@@ -79,7 +79,20 @@ class MapViewController: UIViewController {
             return
         }
         // Call the coordinator to show the prompt to add a note
-        let addNoteCoordinator = AddNoteCoordinator(parentViewController: self)
+        let addNoteCoordinator = AddNoteCoordinator(parentViewController: self, completionHandler: { [weak self] result in
+            switch result {
+            case .cancelled:
+                // Was cancelled, so do nothing
+                ()
+            case .finished(text: let text):
+                // Is empty? do nothing.
+                guard let text = text, !text.isEmpty else {
+                    return
+                }
+                let newRemark = Remark(remarkID: 0, latitude: userLocation.latitude, longitude: userLocation.longitude, user: self?.viewModel?.username ?? "", note: text)
+                self?.viewModel?.addRemark(remark: newRemark)
+            }
+        })
         addNoteCoordinator.start()
     }
     
