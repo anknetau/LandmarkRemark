@@ -18,11 +18,11 @@ class MapViewModel {
     /// A list of the remarks to display
     var currentRemarks: [Remark] = []
     /// The service that will be used to perform remote API updates.
-    var service = MockService()
+    var service = APIService()
 
     weak var delegate: MapViewModelDelegate?
     
-    /// Signal the view controller that the VC needs refreshed data
+    /// Called when the VC needs refreshed data from the server
     func refresh() {
         service.listAll { [weak self] result in
             switch (result) {

@@ -27,6 +27,11 @@
 		893EA3CB2309FF1B00A03E77 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3CA2309FF1B00A03E77 /* Theme.swift */; };
 		893EA3CF230CC28C00A03E77 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3CE230CC28C00A03E77 /* APIService.swift */; };
 		893EA3D5230CE6D700A03E77 /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3D4230CE6D700A03E77 /* SearchResponse.swift */; };
+		893EA3D7230CF8C900A03E77 /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3D6230CF8C900A03E77 /* AlertHelper.swift */; };
+		893EA3D9230D053900A03E77 /* NoteCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3D8230D053900A03E77 /* NoteCoordinator.swift */; };
+		893EA3DB230D099300A03E77 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3DA230D099300A03E77 /* LocationManager.swift */; };
+		893EA3DE230D0C7300A03E77 /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3DC230D0C7300A03E77 /* SetupViewController.swift */; };
+		893EA3DF230D0C7300A03E77 /* SetupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 893EA3DD230D0C7300A03E77 /* SetupViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +77,11 @@
 		893EA3CA2309FF1B00A03E77 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		893EA3CE230CC28C00A03E77 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		893EA3D4230CE6D700A03E77 /* SearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
+		893EA3D6230CF8C900A03E77 /* AlertHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
+		893EA3D8230D053900A03E77 /* NoteCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCoordinator.swift; sourceTree = "<group>"; };
+		893EA3DA230D099300A03E77 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		893EA3DC230D0C7300A03E77 /* SetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewController.swift; sourceTree = "<group>"; };
+		893EA3DD230D0C7300A03E77 /* SetupViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SetupViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +143,7 @@
 				893EA380230907E700A03E77 /* LaunchScreen.storyboard */,
 				893EA383230907E700A03E77 /* Info.plist */,
 				893EA3A523090D3000A03E77 /* README.md */,
+				893EA3DA230D099300A03E77 /* LocationManager.swift */,
 			);
 			path = "Landmark Remark";
 			sourceTree = "<group>";
@@ -160,6 +171,7 @@
 			children = (
 				893EA3AF230935FD00A03E77 /* AppCoordinator.swift */,
 				893EA3AD230935E200A03E77 /* Coordinator.swift */,
+				893EA3D8230D053900A03E77 /* NoteCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -169,6 +181,8 @@
 			children = (
 				893EA3A823092DF900A03E77 /* MapViewController.swift */,
 				893EA3A923092DF900A03E77 /* MapViewController.xib */,
+				893EA3DC230D0C7300A03E77 /* SetupViewController.swift */,
+				893EA3DD230D0C7300A03E77 /* SetupViewController.xib */,
 			);
 			path = "View Controller";
 			sourceTree = "<group>";
@@ -192,11 +206,11 @@
 		893EA3B82309538700A03E77 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				893EA3B92309549800A03E77 /* MockService.swift */,
-				893EA3BB230954CA00A03E77 /* Service.swift */,
 				893EA3CE230CC28C00A03E77 /* APIService.swift */,
 				893EA3C12309F71F00A03E77 /* MockData.swift */,
+				893EA3B92309549800A03E77 /* MockService.swift */,
 				893EA3D4230CE6D700A03E77 /* SearchResponse.swift */,
+				893EA3BB230954CA00A03E77 /* Service.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -204,8 +218,9 @@
 		893EA3C92309FF0D00A03E77 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				893EA3CA2309FF1B00A03E77 /* Theme.swift */,
+				893EA3D6230CF8C900A03E77 /* AlertHelper.swift */,
 				893EA3C52309FB0100A03E77 /* PinStyle.swift */,
+				893EA3CA2309FF1B00A03E77 /* Theme.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -314,6 +329,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				893EA3DF230D0C7300A03E77 /* SetupViewController.xib in Resources */,
 				893EA382230907E700A03E77 /* LaunchScreen.storyboard in Resources */,
 				893EA3AB23092DF900A03E77 /* MapViewController.xib in Resources */,
 				893EA37F230907E700A03E77 /* Assets.xcassets in Resources */,
@@ -345,9 +361,13 @@
 				893EA3B42309414D00A03E77 /* Remark.swift in Sources */,
 				893EA3BC230954CA00A03E77 /* Service.swift in Sources */,
 				893EA3C62309FB0100A03E77 /* PinStyle.swift in Sources */,
+				893EA3DB230D099300A03E77 /* LocationManager.swift in Sources */,
+				893EA3D7230CF8C900A03E77 /* AlertHelper.swift in Sources */,
 				893EA378230907E600A03E77 /* AppDelegate.swift in Sources */,
 				893EA3BA2309549800A03E77 /* MockService.swift in Sources */,
+				893EA3D9230D053900A03E77 /* NoteCoordinator.swift in Sources */,
 				893EA3B0230935FD00A03E77 /* AppCoordinator.swift in Sources */,
+				893EA3DE230D0C7300A03E77 /* SetupViewController.swift in Sources */,
 				893EA3AA23092DF900A03E77 /* MapViewController.swift in Sources */,
 				893EA3AE230935E200A03E77 /* Coordinator.swift in Sources */,
 				893EA3CB2309FF1B00A03E77 /* Theme.swift in Sources */,

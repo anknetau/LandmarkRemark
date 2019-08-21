@@ -30,7 +30,7 @@ class APIService : Service {
             static let noContent = 204
         }
     }
-
+    
     // Add a new remark
     func add(remark: Remark, completionHandler: @escaping (Result<Int, ServiceError>) -> Void) {
         addOrUpdate(remark: remark, updateID: nil, completionHandler: completionHandler)
@@ -66,7 +66,7 @@ class APIService : Service {
         // Start the request
         dataTask.resume()
     }
-
+    
     // List all existing remarks
     func listAll(completionHandler: @escaping (Result<[Remark], ServiceError>) -> Void) {
         let urlString = UrlString.restBase
@@ -80,35 +80,35 @@ class APIService : Service {
         // Create a request with the required headers
         var request = URLRequest(url: url)
         request.setRestAuthentication()
-
+        
         let dataTask = URLSession.shared.dataTask(with: request) { (data, response, error) in
             // Did we receive an error?
             guard error == nil else {
                 completionHandler(.failure(.responseError))
                 return
             }
-
+            
             // Check the response status code
             guard let httpResponse = response as? HTTPURLResponse,
                 httpResponse.statusCode == Constant.StatusCode.ok else {
                     completionHandler(.failure(.responseError))
                     return
             }
-
+            
             // Decode the JSON result
             guard let jsonList = data?.decodeRemarks() else {
                 completionHandler(.failure(.responseError))
                 return
             }
-
+            
             // Successful request! Yay!
             completionHandler(.success(jsonList))
         }
-
+        
         // Start the request
         dataTask.resume()
     }
-
+    
     // Search by text
     func search(string: String, completionHandler: @escaping (Result<[Remark], ServiceError>) -> Void) {
         // Setup the URL
@@ -124,7 +124,7 @@ class APIService : Service {
         var request = URLRequest(url: url)
         request.setApiAuthenticationAndHeaders()
         request.httpMethod = "POST"
-
+        
         // Setup search value with www-form-encoded.
         let encodedString = string.formEncoded()
         request.httpBody = "search=\(encodedString)".data(using: .utf8)
@@ -147,8 +147,8 @@ class APIService : Service {
             // Decode the JSON result, ensure it was successful
             guard let searchResponse = data?.decodeSearchResponse(),
                 searchResponse.responseCode == Constant.successfulApiResponseCode else {
-                completionHandler(.failure(.responseError))
-                return
+                    completionHandler(.failure(.responseError))
+                    return
             }
             
             // Successful request! Yay!
@@ -158,7 +158,7 @@ class APIService : Service {
         // Start the request
         dataTask.resume()
     }
-
+    
     // Update an existing remark
     func update(remark: Remark, completionHandler: @escaping (Result<Int, ServiceError>) -> Void) {
         addOrUpdate(remark: remark, updateID: remark.remarkID, completionHandler: completionHandler)
@@ -180,7 +180,7 @@ class APIService : Service {
             
             return urlString
         }()
-
+        
         // Construct the URL
         guard let url = URL(string: urlString) else {
             completionHandler(.failure(.internalError))

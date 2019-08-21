@@ -8,6 +8,8 @@
 
 import Foundation
 
+// Coordinators allow presentation and flow logic to be encapsulated outside of view controllers.
 protocol Coordinator {
+    // Called when the coordinator should perform the presentation/action.
     func start()
 }

@@ -11,62 +11,63 @@ import MapKit
 import CoreLocation
 
 class MapViewController: UIViewController {
-
     @IBOutlet weak var mapView: MKMapView!
     
     let viewModel = MapViewModel()
-    let locationManager = CLLocationManager()
+    let locationManager = LocationManager.sharedLocationManager
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        locationManager.startCoreLocation()
+
         mapView?.delegate = self
         
-        startCoreLocation()
-        checkCoreLocationPermissions()
         
         // View Model Setup
         viewModel.delegate = self
+        // viewModel.refresh() TODO
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+
+    
+    // MARK: IBActions
+
+    @IBAction func reloadPressed(_ sender: Any) {
+        // Ask the VM to refresh the service data
         viewModel.refresh()
     }
     
-    func startCoreLocation() {
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
-    }
-    
-    func checkCoreLocationPermissions() {
-        guard CLLocationManager.locationServicesEnabled() else {
-            // TODO - error
-            return
-        }
-        if CLLocationManager.authorizationStatus() == .denied {
-            // TODO - error
-        }
+    @IBAction func addPressed(_ sender: Any) {
+        // Call the coordinator to show the prompt to add a note
+        let addNoteCoordinator = AddNoteCoordinator(parentViewController: self)
+        addNoteCoordinator.start()
     }
 }
 
-class AnnotationView: MKAnnotationView {    
+class AnnotationView: MKAnnotationView {
 }
 
-class Annotation: NSObject, MKAnnotation {
+class UserLocationAnnotation: NSObject, MKAnnotation, PinStyleContainer {
     var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: -33, longitude: 151)
-    var title: String? = "Sydney alsdkf jalfdk j"
-    var subtitle: String? = "My note alkfjalk dfjlak dflka dflkja dflkj adlkfj adlkjf aldjkf alkdjf alkfd lakjd fladjk f"
+    var title: String? = "This is where you are"
+    var subtitle: String? = nil
 }
 
-extension MapViewController : CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.last {
-            let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-            let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-            mapView.setRegion(region, animated: true)
-        }
+class RemarkAnnotation: NSObject, MKAnnotation, PinStyleContainer {
+    var coordinate: CLLocationCoordinate2D
+    var remark: Remark
+    var title: String?
+    var subtitle: String?
+    init(coordinate: CLLocationCoordinate2D, remark: Remark) {
+        self.coordinate = coordinate
+        self.remark = remark
     }
-    
 }
+
 extension MapViewController : MKMapViewDelegate {
     struct Constant {
         static let pinAnnotationReuseIdentifier = "CustomPinAnnotation"
@@ -74,21 +75,50 @@ extension MapViewController : MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
         // Ensure we dequeue a reusable view if possible, for performance reasons.
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: Constant.pinAnnotationReuseIdentifier) ?? MKPinAnnotationView(annotation: annotation, reuseIdentifier: Constant.pinAnnotationReuseIdentifier)
+        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: Constant.pinAnnotationReuseIdentifier) as? MKPinAnnotationView ?? MKPinAnnotationView(annotation: annotation, reuseIdentifier: Constant.pinAnnotationReuseIdentifier)
+        annotationView.canShowCallout = true
+        if let annotationView = annotationView as? MKPinAnnotationView,
+            let pinStyleAnnotation = annotation as? PinStyleContainer {
+            annotationView.pinTintColor = pinStyleAnnotation.pinStyle.colour
+        }
+//        annotationView.image =
+        
         
         annotationView.canShowCallout = true
         return annotationView
     }
 }
 
+// MARK: MapViewModelDelegate
+
 extension MapViewController : MapViewModelDelegate {
     func didChangeRemarks() {
         // TODO - WIP
         mapView.removeAnnotations(mapView.annotations)
-        mapView.addAnnotations([Annotation()])
-
+        mapView.addAnnotations([UserLocationAnnotation()])
+        mapView.addAnnotations(viewModel.currentRemarks.asAnnotations())
     }
+    
     func didEncounterError(description: String) {
+        // TODO - WIP
     }
 }
 
+// MARK: Remark Utilities
+
+extension Array where Element == Remark {
+    func asAnnotations() -> [MKAnnotation] {
+        return self.map { remark in
+            let annotation = RemarkAnnotation(coordinate: remark.asCoordinate(), remark: remark)
+            annotation.title = remark.user
+            annotation.subtitle = remark.note
+            return annotation
+        }
+    }
+}
+
+extension Remark {
+    func asCoordinate() -> CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+    }
+}
