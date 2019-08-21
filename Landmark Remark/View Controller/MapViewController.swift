@@ -23,10 +23,10 @@ class MapViewController: UIViewController {
     
     // Ensure user has seen their location, as per requirements.
     var hasUserSeenLocation = false
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // MapView Setup
         mapView?.delegate = self
         
@@ -40,7 +40,7 @@ class MapViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
-
+    
     // MARK: Show 'refreshing' state in UI
     
     func startRefreshingUI() {
@@ -64,7 +64,7 @@ class MapViewController: UIViewController {
     }
     
     // MARK: IBActions
-
+    
     // Reload button
     @IBAction func reloadPressed(_ sender: Any) {
         // Ask the VM to refresh the service data
@@ -79,7 +79,8 @@ class MapViewController: UIViewController {
             return
         }
         // Call the coordinator to show the prompt to add a note
-        let addNoteCoordinator = AddNoteCoordinator(parentViewController: self, completionHandler: { [weak self] result in
+        let addNoteCoordinator = NoteCoordinator(parentViewController: self, defaultContent: nil, completionHandler: { [weak self] result in
+            guard let weakSelf = self else { return }
             switch result {
             case .cancelled:
                 // Was cancelled, so do nothing
@@ -89,8 +90,8 @@ class MapViewController: UIViewController {
                 guard let text = text, !text.isEmpty else {
                     return
                 }
-                let newRemark = Remark(remarkID: 0, latitude: userLocation.latitude, longitude: userLocation.longitude, user: self?.viewModel?.username ?? "", note: text)
-                self?.viewModel?.addRemark(remark: newRemark)
+                let newRemark = Remark(remarkID: 0, latitude: userLocation.latitude, longitude: userLocation.longitude, user: weakSelf.viewModel?.username ?? "", note: text)
+                weakSelf.viewModel?.add(remark: newRemark)
             }
         })
         addNoteCoordinator.start()
@@ -116,25 +117,7 @@ class MapViewController: UIViewController {
     }
 }
 
-class AnnotationView: MKAnnotationView {
-}
-
-class UserLocationAnnotation: NSObject, MKAnnotation, PinStyleContainer {
-    var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
-    var title: String? = "This is where you are"
-    var subtitle: String? = nil
-}
-
-class RemarkAnnotation: NSObject, MKAnnotation, PinStyleContainer {
-    var coordinate: CLLocationCoordinate2D
-    var remark: Remark
-    var title: String?
-    var subtitle: String?
-    init(coordinate: CLLocationCoordinate2D, remark: Remark) {
-        self.coordinate = coordinate
-        self.remark = remark
-    }
-}
+// MARK: MKMapViewDelegate
 
 extension MapViewController : MKMapViewDelegate {
     struct Constant {
@@ -145,15 +128,63 @@ extension MapViewController : MKMapViewDelegate {
         // Ensure we dequeue a reusable view if possible, for performance reasons.
         let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: Constant.pinAnnotationReuseIdentifier) as? MKPinAnnotationView ?? MKPinAnnotationView(annotation: annotation, reuseIdentifier: Constant.pinAnnotationReuseIdentifier)
         annotationView.canShowCallout = true
-        if let annotationView = annotationView as? MKPinAnnotationView,
-            let pinStyleAnnotation = annotation as? PinStyleContainer {
+        
+        // If this is a note annotation
+        if annotation is RemarkAnnotation {
+            // Prepare a button to put on the right side
+            let button = UIButton(type: .detailDisclosure)
+            annotationView.rightCalloutAccessoryView = button
+        }
+
+        // Setup the pin colour
+        if let pinStyleAnnotation = annotation as? PinStyleContainer {
             annotationView.pinTintColor = pinStyleAnnotation.pinStyle.colour
         }
-//        annotationView.image =
-        
-        
+
         annotationView.canShowCallout = true
         return annotationView
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        guard let remarkAnnotation = view.annotation as? RemarkAnnotation else {
+            return
+        }
+        
+        // Show actions available
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Edit", style: .default, handler: { [weak self] action in
+            guard let weakSelf = self else { return }
+            // Call the coordinator to show the prompt to edit a note
+            let addNoteCoordinator = NoteCoordinator(parentViewController: weakSelf, defaultContent: remarkAnnotation.remark.note, completionHandler: { result in
+                switch result {
+                case .cancelled:
+                    // Was cancelled, so do nothing
+                    ()
+                case .finished(text: let text):
+                    // Is empty? do nothing.
+                    guard let text = text, !text.isEmpty else {
+                        return
+                    }
+                    let remark = remarkAnnotation.remark
+                    let editedRemark = Remark(remarkID: remark.remarkID, latitude: remark.latitude, longitude: remark.longitude, user: remark.user, note: text)
+                    weakSelf.viewModel?.update(remark: editedRemark)
+                }
+            })
+            addNoteCoordinator.start()
+        }))
+        
+        // Allow deleting if you are the owner of the remark
+        if remarkAnnotation.remark.user == viewModel?.username {
+            alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [weak self] action in
+                self?.viewModel?.delete(uniqueId: remarkAnnotation.remark.remarkID)
+            }))
+        }
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
@@ -168,15 +199,18 @@ extension MapViewController : MapViewModelDelegate {
     func didEndRefreshing() {
         finishRefreshingUI()
     }
+    // Refresh the annotations in the map
     func didChangeRemarks() {
-        // TODO - WIP
         guard let viewModel = viewModel else { return }
+        // Clear all annotations
         mapView.removeAnnotations(mapView.annotations)
+        // Add the user's location
         if let userLocation = viewModel.userLocation {
             let userLocationAnnotation = UserLocationAnnotation()
             userLocationAnnotation.coordinate = userLocation
             mapView.addAnnotation(userLocationAnnotation)
         }
+        // Add all current remarks
         mapView.addAnnotations(viewModel.currentRemarks.asAnnotations())
     }
     
@@ -194,7 +228,7 @@ extension MapViewController : MapViewModelDelegate {
         if let oldLocationAnnotation = oldLocationAnnotation {
             mapView.removeAnnotation(oldLocationAnnotation)
         }
-
+        
         // Add the location again, to update it.
         let userLocationAnnotation = UserLocationAnnotation()
         userLocationAnnotation.coordinate = userLocation

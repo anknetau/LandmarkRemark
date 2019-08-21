@@ -31,7 +31,7 @@ class MockLocationManager: LocationManager {
         // Setup or increment the coordinate slightly
         if let simulatedLocation = simulatedLocation {
             // Small delta increment to move the user
-            let delta =  0.000001
+            let delta =  0.00001
             self.simulatedLocation = (simulatedLocation.0 + delta, simulatedLocation.1 + delta)
         } else {
             self.simulatedLocation = initialLocation

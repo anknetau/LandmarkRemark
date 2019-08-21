@@ -72,7 +72,7 @@ class MapViewModel {
     }
     
     // Adds a new remark. Will trigger a refresh.
-    func addRemark(remark: Remark) {
+    func add(remark: Remark) {
         service.add(remark: remark) { [weak self] result in
             // Ensure we are in the UI thread
             DispatchQueue.main.async {
@@ -84,6 +84,37 @@ class MapViewModel {
                 }
             }
         }
+    }
+    
+    // Updates a remark. Will trigger a refresh.
+    func update(remark: Remark) {
+        service.update(remark: remark) { [weak self] result in
+            // Ensure we are in the UI thread
+            DispatchQueue.main.async {
+                switch (result) {
+                case .failure(_):
+                    self?.delegate?.didEncounterError(description: "Could not edit note")
+                case .success(_):
+                    self?.refresh()
+                }
+            }
+        }
+    }
+    
+    // Deletes a remark. Will trigger a refresh.
+    func delete(uniqueId: Int) {
+        service.delete(uniqueId: uniqueId) { [weak self] result in
+            // Ensure we are in the UI thread
+            DispatchQueue.main.async {
+                switch (result) {
+                case .failure(_):
+                    self?.delegate?.didEncounterError(description: "Could not delete note")
+                case .success(_):
+                    self?.refresh()
+                }
+            }
+        }
+        
     }
 }
 

@@ -38,6 +38,8 @@
 		893EA3EA230D3B6C00A03E77 /* PhysicalLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3E9230D3B6C00A03E77 /* PhysicalLocationManager.swift */; };
 		893EA3EC230D402E00A03E77 /* MockLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3EB230D402E00A03E77 /* MockLocationManager.swift */; };
 		893EA3EE230D50A300A03E77 /* RemarksTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3ED230D50A300A03E77 /* RemarksTest.swift */; };
+		893EA3F0230D5BAA00A03E77 /* UserLocationAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3EF230D5BAA00A03E77 /* UserLocationAnnotation.swift */; };
+		893EA3F2230D5BCF00A03E77 /* RemarkAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3F1230D5BCF00A03E77 /* RemarkAnnotation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +95,8 @@
 		893EA3E9230D3B6C00A03E77 /* PhysicalLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicalLocationManager.swift; sourceTree = "<group>"; };
 		893EA3EB230D402E00A03E77 /* MockLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLocationManager.swift; sourceTree = "<group>"; };
 		893EA3ED230D50A300A03E77 /* RemarksTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemarksTest.swift; sourceTree = "<group>"; };
+		893EA3EF230D5BAA00A03E77 /* UserLocationAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationAnnotation.swift; sourceTree = "<group>"; };
+		893EA3F1230D5BCF00A03E77 /* RemarkAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemarkAnnotation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -235,6 +239,8 @@
 				893EA3D6230CF8C900A03E77 /* AlertHelper.swift */,
 				893EA3C52309FB0100A03E77 /* PinStyle.swift */,
 				893EA3CA2309FF1B00A03E77 /* Theme.swift */,
+				893EA3EF230D5BAA00A03E77 /* UserLocationAnnotation.swift */,
+				893EA3F1230D5BCF00A03E77 /* RemarkAnnotation.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -394,8 +400,10 @@
 				893EA3BA2309549800A03E77 /* MockService.swift in Sources */,
 				893EA3E3230D1D2900A03E77 /* MapCoordinator.swift in Sources */,
 				893EA3D9230D053900A03E77 /* NoteCoordinator.swift in Sources */,
+				893EA3F2230D5BCF00A03E77 /* RemarkAnnotation.swift in Sources */,
 				893EA3B0230935FD00A03E77 /* AppCoordinator.swift in Sources */,
 				893EA3E1230D1AE900A03E77 /* SetupViewModel.swift in Sources */,
+				893EA3F0230D5BAA00A03E77 /* UserLocationAnnotation.swift in Sources */,
 				893EA3DE230D0C7300A03E77 /* SetupViewController.swift in Sources */,
 				893EA3AA23092DF900A03E77 /* MapViewController.swift in Sources */,
 				893EA3AE230935E200A03E77 /* Coordinator.swift in Sources */,

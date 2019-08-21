@@ -44,4 +44,5 @@ Created by Andres N. Kievsky.
 7. The app has only been tested in the simulator
 8. Obvious security issues exist with the unguarded API used - anyone on the internet with the right headers can make changes. In the real world, an auth system would be used, such as Auth0 or OAuth.
 9. URL construction is done quickly via string operations rather than the correct URLComponents/URLQueryItem method.
+10. Deleting a note should have an extra prompt, querying whether the user is certain they want to delete it.
 

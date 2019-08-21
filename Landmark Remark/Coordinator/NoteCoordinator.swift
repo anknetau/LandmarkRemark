@@ -8,23 +8,19 @@
 
 import UIKit
 
-/// Coordinators used in adding/modifying/deleting notes
+/// Coordinators used in adding/modifying note text
 
-struct AddNoteCoordinator: Coordinator {
+struct NoteCoordinator: Coordinator {
     var parentViewController: UIViewController?
     var completionHandler: (NoteResult) -> Void
-    init(parentViewController: UIViewController, completionHandler: @escaping (NoteResult) -> Void) {
+    var defaultContent: String?
+    init(parentViewController: UIViewController, defaultContent: String?, completionHandler: @escaping (NoteResult) -> Void) {
         self.parentViewController = parentViewController
         self.completionHandler = completionHandler
+        self.defaultContent = defaultContent
     }
     func start() {
-        let viewController = AlertHelper.singleNoteViewController(completionHandler: completionHandler)
+        let viewController = AlertHelper.singleNoteViewController(defaultContent: defaultContent, completionHandler: completionHandler)
         parentViewController?.present(viewController, animated: true, completion: nil)
-    }
-}
-
-struct EditNoteCoordinator: Coordinator {
-    func start() {
-        
     }
 }
