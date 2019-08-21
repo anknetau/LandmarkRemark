@@ -23,7 +23,7 @@ class MockService : Service {
         uniqueId = uniqueId + 1
 
         // Update object's ID and store it
-        let updatedRemark = Remark(uniqueId: uniqueId, latitude: remark.latitude, longitude: remark.longitude, user: remark.user, note: remark.note)
+        let updatedRemark = Remark(remarkID: uniqueId, latitude: remark.latitude, longitude: remark.longitude, user: remark.user, note: remark.note)
         remarks.append(updatedRemark)
         
         // Call back with unique ID created
@@ -33,7 +33,7 @@ class MockService : Service {
     // Delete a remark by ID
     func delete(uniqueId: Int, completionHandler: @escaping (Result<Int, ServiceError>) -> Void) {
         // Remove matching remarks from array
-        remarks.removeAll { $0.uniqueId == uniqueId }
+        remarks.removeAll { $0.remarkID == uniqueId }
         completionHandler(.success(1))
     }
     
@@ -53,7 +53,7 @@ class MockService : Service {
     // Update an existing remark
     func update(remark: Remark, completionHandler: @escaping (Result<Int, ServiceError>) -> Void) {
         // Exchange existing object in ID with new one
-        remarks = remarks.map { $0.uniqueId == remark.uniqueId ? $0 : remark }
+        remarks = remarks.map { $0.remarkID == remark.remarkID ? $0 : remark }
         completionHandler(.success(1))
     }
 
@@ -63,7 +63,7 @@ class MockService : Service {
         return MockData.locations.map {
             location in
             uniqueId = uniqueId + 1
-            return Remark(uniqueId: uniqueId, latitude: location.0, longitude: location.1, user: "user", note: "this is a note for location \(uniqueId)")
+            return Remark(remarkID: uniqueId, latitude: location.0, longitude: location.1, user: "user", note: "this is a note for location \(uniqueId)")
         }
     }
     

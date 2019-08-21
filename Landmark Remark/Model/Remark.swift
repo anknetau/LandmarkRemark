@@ -10,7 +10,7 @@ import Foundation
 
 // Models an entry (i.e., a landmark's remark) in the app.
 struct Remark : Codable {
-    let uniqueId: Int
+    let remarkID: Int
     let latitude: Double
     let longitude: Double
     let user: String
