@@ -1,5 +1,5 @@
 //
-//  LocationManager.swift
+//  PhysicalLocationManager.swift
 //  Landmark Remark
 //
 //  Created by Andres Kievsky on 21/8/19.
@@ -9,39 +9,33 @@
 import Foundation
 import CoreLocation
 
-// Tracks the user's current location, hiding CoreLocation's complexities.
+/// A location manager based on Core Location, hides CoreLocation's complexities.
 
-protocol LocationManagerDelegate: AnyObject {
-    // Called when the location changes
-    func didUpdateLocation()
-}
-
-class LocationManager: NSObject {
-    let locationManager = CLLocationManager()
-
-    // A default location manager, shared so it can be used across the app to observe the current location as necessary.
-    static let sharedLocationManager = LocationManager()
-
+class PhysicalLocationManager: NSObject, LocationManager {
+    private let locationManager = CLLocationManager()
+    
     weak var delegate: LocationManagerDelegate?
+    
+    // Current location as last tracked
     var currentLocation: CLLocationCoordinate2D?
-
+    
     /// Function needs to be called to start tracking the user
-    func startCoreLocation() {
+    func startTrackingUser() {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
     }
-
+    
     /// This function determines whether the user has denied access to tracking.
-    var coreLocationAccessWasDenied = {
+    var locationAccessWasDenied: Bool {
         return CLLocationManager.authorizationStatus() == .denied
     }
 }
 
 // MARK: CLLocationManagerDelegate
 
-extension LocationManager: CLLocationManagerDelegate {
+extension PhysicalLocationManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         // If the location has changed, update the underlying object and let the delegate know.
         if let location = locations.last {

@@ -10,7 +10,7 @@
 		893EA378230907E600A03E77 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA377230907E600A03E77 /* AppDelegate.swift */; };
 		893EA37F230907E700A03E77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 893EA37E230907E700A03E77 /* Assets.xcassets */; };
 		893EA382230907E700A03E77 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 893EA380230907E700A03E77 /* LaunchScreen.storyboard */; };
-		893EA38D230907E700A03E77 /* Landmark_RemarkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA38C230907E700A03E77 /* Landmark_RemarkTests.swift */; };
+		893EA38D230907E700A03E77 /* UserLocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA38C230907E700A03E77 /* UserLocationTests.swift */; };
 		893EA398230907E700A03E77 /* Landmark_RemarkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA397230907E700A03E77 /* Landmark_RemarkUITests.swift */; };
 		893EA3AA23092DF900A03E77 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3A823092DF900A03E77 /* MapViewController.swift */; };
 		893EA3AB23092DF900A03E77 /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 893EA3A923092DF900A03E77 /* MapViewController.xib */; };
@@ -35,6 +35,9 @@
 		893EA3E1230D1AE900A03E77 /* SetupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3E0230D1AE900A03E77 /* SetupViewModel.swift */; };
 		893EA3E3230D1D2900A03E77 /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3E2230D1D2900A03E77 /* MapCoordinator.swift */; };
 		893EA3E5230D38D100A03E77 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 893EA3E4230D38D000A03E77 /* README.md */; };
+		893EA3EA230D3B6C00A03E77 /* PhysicalLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3E9230D3B6C00A03E77 /* PhysicalLocationManager.swift */; };
+		893EA3EC230D402E00A03E77 /* MockLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3EB230D402E00A03E77 /* MockLocationManager.swift */; };
+		893EA3EE230D50A300A03E77 /* RemarksTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3ED230D50A300A03E77 /* RemarksTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,7 +64,7 @@
 		893EA381230907E700A03E77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		893EA383230907E700A03E77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		893EA388230907E700A03E77 /* Landmark RemarkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Landmark RemarkTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		893EA38C230907E700A03E77 /* Landmark_RemarkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landmark_RemarkTests.swift; sourceTree = "<group>"; };
+		893EA38C230907E700A03E77 /* UserLocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationTests.swift; sourceTree = "<group>"; };
 		893EA38E230907E700A03E77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		893EA393230907E700A03E77 /* Landmark RemarkUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Landmark RemarkUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		893EA397230907E700A03E77 /* Landmark_RemarkUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landmark_RemarkUITests.swift; sourceTree = "<group>"; };
@@ -87,6 +90,9 @@
 		893EA3E0230D1AE900A03E77 /* SetupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewModel.swift; sourceTree = "<group>"; };
 		893EA3E2230D1D2900A03E77 /* MapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
 		893EA3E4230D38D000A03E77 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		893EA3E9230D3B6C00A03E77 /* PhysicalLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicalLocationManager.swift; sourceTree = "<group>"; };
+		893EA3EB230D402E00A03E77 /* MockLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLocationManager.swift; sourceTree = "<group>"; };
+		893EA3ED230D50A300A03E77 /* RemarksTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemarksTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +144,7 @@
 		893EA376230907E600A03E77 /* Landmark Remark */ = {
 			isa = PBXGroup;
 			children = (
+				893EA3E8230D3B5600A03E77 /* Location Manager */,
 				893EA3C92309FF0D00A03E77 /* View */,
 				893EA3B82309538700A03E77 /* Service */,
 				893EA3B5230942A400A03E77 /* View Model */,
@@ -147,7 +154,6 @@
 				893EA377230907E600A03E77 /* AppDelegate.swift */,
 				893EA37E230907E700A03E77 /* Assets.xcassets */,
 				893EA383230907E700A03E77 /* Info.plist */,
-				893EA3DA230D099300A03E77 /* LocationManager.swift */,
 			);
 			path = "Landmark Remark";
 			sourceTree = "<group>";
@@ -155,8 +161,9 @@
 		893EA38B230907E700A03E77 /* Landmark RemarkTests */ = {
 			isa = PBXGroup;
 			children = (
-				893EA38C230907E700A03E77 /* Landmark_RemarkTests.swift */,
 				893EA38E230907E700A03E77 /* Info.plist */,
+				893EA3ED230D50A300A03E77 /* RemarksTest.swift */,
+				893EA38C230907E700A03E77 /* UserLocationTests.swift */,
 			);
 			path = "Landmark RemarkTests";
 			sourceTree = "<group>";
@@ -230,6 +237,16 @@
 				893EA3CA2309FF1B00A03E77 /* Theme.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		893EA3E8230D3B5600A03E77 /* Location Manager */ = {
+			isa = PBXGroup;
+			children = (
+				893EA3DA230D099300A03E77 /* LocationManager.swift */,
+				893EA3E9230D3B6C00A03E77 /* PhysicalLocationManager.swift */,
+				893EA3EB230D402E00A03E77 /* MockLocationManager.swift */,
+			);
+			path = "Location Manager";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -367,9 +384,11 @@
 			files = (
 				893EA3D5230CE6D700A03E77 /* SearchResponse.swift in Sources */,
 				893EA3B42309414D00A03E77 /* Remark.swift in Sources */,
+				893EA3EC230D402E00A03E77 /* MockLocationManager.swift in Sources */,
 				893EA3BC230954CA00A03E77 /* Service.swift in Sources */,
 				893EA3C62309FB0100A03E77 /* PinStyle.swift in Sources */,
 				893EA3DB230D099300A03E77 /* LocationManager.swift in Sources */,
+				893EA3EA230D3B6C00A03E77 /* PhysicalLocationManager.swift in Sources */,
 				893EA3D7230CF8C900A03E77 /* AlertHelper.swift in Sources */,
 				893EA378230907E600A03E77 /* AppDelegate.swift in Sources */,
 				893EA3BA2309549800A03E77 /* MockService.swift in Sources */,
@@ -391,8 +410,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				893EA38D230907E700A03E77 /* Landmark_RemarkTests.swift in Sources */,
+				893EA38D230907E700A03E77 /* UserLocationTests.swift in Sources */,
 				893EA3C32309F71F00A03E77 /* MockData.swift in Sources */,
+				893EA3EE230D50A300A03E77 /* RemarksTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

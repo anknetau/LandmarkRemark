@@ -63,7 +63,7 @@ class MockService : Service {
         return MockData.locations.map {
             location in
             uniqueId = uniqueId + 1
-            return Remark(remarkID: uniqueId, latitude: location.0, longitude: location.1, user: "user", note: "this is a note for location \(uniqueId)")
+            return Remark(remarkID: uniqueId, latitude: location.0, longitude: location.1, user: "user_\(uniqueId)", note: location.2)
         }
     }
     

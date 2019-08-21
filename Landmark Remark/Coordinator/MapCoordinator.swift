@@ -20,7 +20,7 @@ struct MapCoordinator: Coordinator {
     }
     func start() {
         let mapViewController = MapViewController()
-        mapViewController.viewModel = MapViewModel(username: username)
+        mapViewController.viewModel = MapViewModel(username: username, service: MockService(), locationManager: MockLocationManager())
         parentViewController.present(mapViewController, animated: true, completion: nil)
     }
 }

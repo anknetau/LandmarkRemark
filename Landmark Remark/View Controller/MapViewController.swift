@@ -17,19 +17,23 @@ class MapViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var jumpToLocationButton: UIButton!
-
+    @IBOutlet weak var expandButton: UIButton!
+    
     var viewModel: MapViewModel?
+    
+    // Ensure user has seen their location, as per requirements.
+    var hasUserSeenLocation = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Ensure core location is started now, so the request is seen on this screen.
-        LocationManager.sharedLocationManager.startCoreLocation()
-
+        // MapView Setup
         mapView?.delegate = self
         
         // View Model Setup
         viewModel?.delegate = self
+        // Ensure tracking is started now, so the access request is seen on this screen.
+        viewModel?.startTrackingUser()
         viewModel?.refresh()
     }
     
@@ -45,6 +49,7 @@ class MapViewController: UIViewController {
         addButton.isEnabled = false
         reloadButton.isEnabled = false
         jumpToLocationButton.isEnabled = false
+        expandButton.isEnabled = false
         activityIndicator.startAnimating()
     }
     
@@ -54,6 +59,7 @@ class MapViewController: UIViewController {
         addButton.isEnabled = true
         reloadButton.isEnabled = true
         jumpToLocationButton.isEnabled = true
+        expandButton.isEnabled = true
         activityIndicator.stopAnimating()
     }
     
@@ -85,12 +91,15 @@ class MapViewController: UIViewController {
             return
         }
         guard let locationAnnotation = mapView.annotations.first(where: { $0 is UserLocationAnnotation}) else {
-            print("not found!")
             return
         }
         
         mapView.showAnnotations([locationAnnotation], animated: true)
-        print("found")
+    }
+    
+    // User wants to see all markers
+    @IBAction func expandPressed(_ sender: Any) {
+        mapView.showAnnotations(mapView.annotations, animated: true)
     }
 }
 
@@ -156,7 +165,6 @@ extension MapViewController : MapViewModelDelegate {
             mapView.addAnnotation(userLocationAnnotation)
         }
         mapView.addAnnotations(viewModel.currentRemarks.asAnnotations())
-        mapView.showAnnotations(mapView.annotations, animated: true)
     }
     
     func didEncounterError(description: String) {
@@ -178,6 +186,12 @@ extension MapViewController : MapViewModelDelegate {
         let userLocationAnnotation = UserLocationAnnotation()
         userLocationAnnotation.coordinate = userLocation
         mapView.addAnnotation(userLocationAnnotation)
+        
+        // Zoom to show the user's location if it's the first time
+        if !hasUserSeenLocation {
+            mapView.showAnnotations([userLocationAnnotation], animated: true)
+            hasUserSeenLocation = true
+        }
     }
     
 }

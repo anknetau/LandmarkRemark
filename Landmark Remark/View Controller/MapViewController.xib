@@ -14,6 +14,7 @@
             <connections>
                 <outlet property="activityIndicator" destination="V3X-Ie-Cv3" id="9Ae-Qd-i4f"/>
                 <outlet property="addButton" destination="lbe-3n-sIb" id="SCn-Hu-0P3"/>
+                <outlet property="expandButton" destination="g1I-cE-Gld" id="Yll-MU-qcO"/>
                 <outlet property="jumpToLocationButton" destination="1Y6-np-Q5F" id="uNC-Xg-d1q"/>
                 <outlet property="mapView" destination="fxB-bf-Agt" id="Suf-xb-8F2"/>
                 <outlet property="reloadButton" destination="XDW-t4-y6v" id="6K7-c1-pPO"/>
@@ -26,11 +27,15 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="rYr-k6-HHA">
+                <searchBar contentMode="redraw" placeholder="Search" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rYr-k6-HHA">
                     <rect key="frame" x="0.0" y="44" width="414" height="56"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                    <scopeButtonTitles>
+                        <string>Title</string>
+                        <string>Title</string>
+                    </scopeButtonTitles>
                 </searchBar>
-                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="fxB-bf-Agt">
+                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" rotateEnabled="NO" pitchEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fxB-bf-Agt">
                     <rect key="frame" x="0.0" y="100" width="414" height="762"/>
                 </mapView>
                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="V3X-Ie-Cv3">
@@ -38,32 +43,40 @@
                     <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </activityIndicatorView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lbe-3n-sIb">
-                    <rect key="frame" x="359.33333333333331" y="807.33333333333337" width="42.666666666666686" height="42.666666666666629"/>
+                    <rect key="frame" x="359.66666666666669" y="807.66666666666663" width="42.333333333333314" height="42.333333333333371"/>
                     <state key="normal" image="plus-round"/>
                     <connections>
                         <action selector="addPressed:" destination="-1" eventType="touchUpInside" id="wjx-0g-qno"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XDW-t4-y6v">
-                    <rect key="frame" x="284.66666666666669" y="807" width="42.666666666666686" height="42.666666666666629"/>
+                    <rect key="frame" x="284.66666666666669" y="807.66666666666663" width="43" height="42.333333333333371"/>
                     <state key="normal" image="redo-arrow"/>
                     <connections>
                         <action selector="reloadPressed:" destination="-1" eventType="touchUpInside" id="mp2-ub-Z2H"/>
                     </connections>
                 </button>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QPj-XI-uVG" userLabel="Bottom View">
-                    <rect key="frame" x="0.0" y="862" width="414" height="34"/>
-                </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Y6-np-Q5F">
-                    <rect key="frame" x="210" y="807" width="42.666666666666657" height="42.666666666666629"/>
+                    <rect key="frame" x="210" y="807.66666666666663" width="42.666666666666657" height="42.333333333333371"/>
                     <state key="normal" image="compass"/>
                     <connections>
                         <action selector="jumpToLocationPressed:" destination="-1" eventType="touchUpInside" id="dyN-LM-yHa"/>
                     </connections>
                 </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QPj-XI-uVG" userLabel="Bottom View">
+                    <rect key="frame" x="0.0" y="862" width="414" height="34"/>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g1I-cE-Gld">
+                    <rect key="frame" x="135.66666666666666" y="807.66666666666663" width="42.333333333333343" height="42.333333333333371"/>
+                    <state key="normal" image="four-corners-arrows"/>
+                    <connections>
+                        <action selector="expandPressed:" destination="-1" eventType="touchUpInside" id="yJn-Ej-2P7"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.53884531304777505" green="0.66666668653488159" blue="0.66317210329504317" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
             <constraints>
+                <constraint firstItem="QPj-XI-uVG" firstAttribute="top" secondItem="g1I-cE-Gld" secondAttribute="bottom" constant="12" id="5j8-aB-eoo"/>
                 <constraint firstItem="XDW-t4-y6v" firstAttribute="leading" secondItem="1Y6-np-Q5F" secondAttribute="trailing" constant="32" id="9aW-wO-LCG"/>
                 <constraint firstItem="lbe-3n-sIb" firstAttribute="leading" secondItem="XDW-t4-y6v" secondAttribute="trailing" constant="32" id="9sg-dV-Rtp"/>
                 <constraint firstItem="fxB-bf-Agt" firstAttribute="leading" secondItem="sCt-R3-szs" secondAttribute="leading" id="9ye-d6-pKT"/>
@@ -74,12 +87,13 @@
                 <constraint firstItem="rYr-k6-HHA" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="KeF-wD-goB"/>
                 <constraint firstItem="rYr-k6-HHA" firstAttribute="leading" secondItem="sCt-R3-szs" secondAttribute="leading" id="KfD-rZ-BU7"/>
                 <constraint firstItem="QPj-XI-uVG" firstAttribute="top" secondItem="sCt-R3-szs" secondAttribute="bottom" id="Me2-BC-28U"/>
-                <constraint firstItem="QPj-XI-uVG" firstAttribute="top" secondItem="1Y6-np-Q5F" secondAttribute="bottom" constant="12.333333333333371" id="PSA-Sn-E80"/>
+                <constraint firstItem="1Y6-np-Q5F" firstAttribute="leading" secondItem="g1I-cE-Gld" secondAttribute="trailing" constant="32" id="PPy-RD-gXQ"/>
+                <constraint firstItem="QPj-XI-uVG" firstAttribute="top" secondItem="1Y6-np-Q5F" secondAttribute="bottom" constant="12" id="PSA-Sn-E80"/>
                 <constraint firstItem="lbe-3n-sIb" firstAttribute="trailing" secondItem="fxB-bf-Agt" secondAttribute="trailing" constant="-12" id="Vol-WK-UKL"/>
                 <constraint firstItem="V3X-Ie-Cv3" firstAttribute="centerY" secondItem="fxB-bf-Agt" secondAttribute="centerY" id="Vxh-HG-O6B"/>
                 <constraint firstAttribute="bottom" secondItem="QPj-XI-uVG" secondAttribute="bottom" id="Zam-AE-Eaq"/>
                 <constraint firstItem="QPj-XI-uVG" firstAttribute="top" secondItem="fxB-bf-Agt" secondAttribute="bottom" id="coT-n0-JJ7"/>
-                <constraint firstItem="QPj-XI-uVG" firstAttribute="top" secondItem="XDW-t4-y6v" secondAttribute="bottom" constant="12.333333333333371" id="eSa-SM-8mz"/>
+                <constraint firstItem="QPj-XI-uVG" firstAttribute="top" secondItem="XDW-t4-y6v" secondAttribute="bottom" constant="12" id="eSa-SM-8mz"/>
                 <constraint firstItem="rYr-k6-HHA" firstAttribute="top" secondItem="sCt-R3-szs" secondAttribute="top" id="n6T-dY-vtc"/>
                 <constraint firstItem="QPj-XI-uVG" firstAttribute="top" secondItem="lbe-3n-sIb" secondAttribute="bottom" constant="12" id="q78-xw-kCK"/>
                 <constraint firstItem="QPj-XI-uVG" firstAttribute="width" secondItem="sCt-R3-szs" secondAttribute="width" id="qqc-XJ-xPB"/>
@@ -90,6 +104,7 @@
     </objects>
     <resources>
         <image name="compass" width="42.666667938232422" height="42.666667938232422"/>
+        <image name="four-corners-arrows" width="42.666667938232422" height="42.666667938232422"/>
         <image name="plus-round" width="42.666667938232422" height="42.666667938232422"/>
         <image name="redo-arrow" width="42.666667938232422" height="42.666667938232422"/>
     </resources>

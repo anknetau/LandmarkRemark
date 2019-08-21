@@ -25,11 +25,14 @@ protocol MapViewModelDelegate : AnyObject {
 /// The View Model to provide data to the MapViewController.
 class MapViewModel {
     /// Initialisation requires the username
-    init(username: String, service: Service = APIService()) {
+    init(username: String, service: Service = APIService(), locationManager: LocationManager = PhysicalLocationManager()) {
         self.username = username
         self.service = service
-        LocationManager.sharedLocationManager.delegate = self
+        self.locationManager = locationManager
+        locationManager.delegate = self
     }
+    // Location Manager to track the user's location and movements
+    var locationManager: LocationManager
     /// The current username
     var username: String
     /// A list of the remarks to display
@@ -38,7 +41,7 @@ class MapViewModel {
     var service: Service
     /// Return the user's current location or nil if not known.
     var userLocation: CLLocationCoordinate2D? {
-        return LocationManager.sharedLocationManager.currentLocation
+        return locationManager.currentLocation
     }
 
     weak var delegate: MapViewModelDelegate?
@@ -61,6 +64,11 @@ class MapViewModel {
                 }
             }
         }
+    }
+    
+    // Initialise tracking system, ask user if they want to be tracked (if necessary).
+    func startTrackingUser() {
+        locationManager.startTrackingUser()
     }
 }
 
