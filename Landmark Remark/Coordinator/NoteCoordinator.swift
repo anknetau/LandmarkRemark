@@ -17,6 +17,7 @@ struct AddNoteCoordinator: Coordinator {
     }
     func start() {
         let viewController = AlertHelper.singleNoteViewController { result in
+            // TODO
         }
         parentViewController?.present(viewController, animated: true, completion: nil)
     }

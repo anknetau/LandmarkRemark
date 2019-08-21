@@ -13,7 +13,7 @@ import CoreLocation
 class MapViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     
-    let viewModel = MapViewModel()
+    var viewModel: MapViewModel?
     let locationManager = LocationManager.sharedLocationManager
 
     override func viewDidLoad() {
@@ -25,7 +25,7 @@ class MapViewController: UIViewController {
         
         
         // View Model Setup
-        viewModel.delegate = self
+        viewModel?.delegate = self
         // viewModel.refresh() TODO
     }
     
@@ -38,7 +38,7 @@ class MapViewController: UIViewController {
 
     @IBAction func reloadPressed(_ sender: Any) {
         // Ask the VM to refresh the service data
-        viewModel.refresh()
+        viewModel?.refresh()
     }
     
     @IBAction func addPressed(_ sender: Any) {
@@ -94,6 +94,7 @@ extension MapViewController : MKMapViewDelegate {
 extension MapViewController : MapViewModelDelegate {
     func didChangeRemarks() {
         // TODO - WIP
+        guard let viewModel = viewModel else { return }
         mapView.removeAnnotations(mapView.annotations)
         mapView.addAnnotations([UserLocationAnnotation()])
         mapView.addAnnotations(viewModel.currentRemarks.asAnnotations())

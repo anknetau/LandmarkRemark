@@ -15,6 +15,12 @@ protocol MapViewModelDelegate : AnyObject {
 
 /// The View Model to provide data to the MapViewController.
 class MapViewModel {
+    /// Initialisation requires the username
+    init(username: String) {
+        self.username = username
+    }
+    /// The current username
+    var username: String
     /// A list of the remarks to display
     var currentRemarks: [Remark] = []
     /// The service that will be used to perform remote API updates.

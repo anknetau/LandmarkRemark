@@ -32,6 +32,8 @@
 		893EA3DB230D099300A03E77 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3DA230D099300A03E77 /* LocationManager.swift */; };
 		893EA3DE230D0C7300A03E77 /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3DC230D0C7300A03E77 /* SetupViewController.swift */; };
 		893EA3DF230D0C7300A03E77 /* SetupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 893EA3DD230D0C7300A03E77 /* SetupViewController.xib */; };
+		893EA3E1230D1AE900A03E77 /* SetupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3E0230D1AE900A03E77 /* SetupViewModel.swift */; };
+		893EA3E3230D1D2900A03E77 /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893EA3E2230D1D2900A03E77 /* MapCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +84,8 @@
 		893EA3DA230D099300A03E77 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		893EA3DC230D0C7300A03E77 /* SetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewController.swift; sourceTree = "<group>"; };
 		893EA3DD230D0C7300A03E77 /* SetupViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SetupViewController.xib; sourceTree = "<group>"; };
+		893EA3E0230D1AE900A03E77 /* SetupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewModel.swift; sourceTree = "<group>"; };
+		893EA3E2230D1D2900A03E77 /* MapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,7 +144,6 @@
 				893EA3AC230935D000A03E77 /* Coordinator */,
 				893EA377230907E600A03E77 /* AppDelegate.swift */,
 				893EA37E230907E700A03E77 /* Assets.xcassets */,
-				893EA380230907E700A03E77 /* LaunchScreen.storyboard */,
 				893EA383230907E700A03E77 /* Info.plist */,
 				893EA3A523090D3000A03E77 /* README.md */,
 				893EA3DA230D099300A03E77 /* LocationManager.swift */,
@@ -172,6 +175,7 @@
 				893EA3AF230935FD00A03E77 /* AppCoordinator.swift */,
 				893EA3AD230935E200A03E77 /* Coordinator.swift */,
 				893EA3D8230D053900A03E77 /* NoteCoordinator.swift */,
+				893EA3E2230D1D2900A03E77 /* MapCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -179,6 +183,7 @@
 		893EA3B123093AB900A03E77 /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
+				893EA380230907E700A03E77 /* LaunchScreen.storyboard */,
 				893EA3A823092DF900A03E77 /* MapViewController.swift */,
 				893EA3A923092DF900A03E77 /* MapViewController.xib */,
 				893EA3DC230D0C7300A03E77 /* SetupViewController.swift */,
@@ -199,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				893EA3B6230942B000A03E77 /* MapViewModel.swift */,
+				893EA3E0230D1AE900A03E77 /* SetupViewModel.swift */,
 			);
 			path = "View Model";
 			sourceTree = "<group>";
@@ -365,8 +371,10 @@
 				893EA3D7230CF8C900A03E77 /* AlertHelper.swift in Sources */,
 				893EA378230907E600A03E77 /* AppDelegate.swift in Sources */,
 				893EA3BA2309549800A03E77 /* MockService.swift in Sources */,
+				893EA3E3230D1D2900A03E77 /* MapCoordinator.swift in Sources */,
 				893EA3D9230D053900A03E77 /* NoteCoordinator.swift in Sources */,
 				893EA3B0230935FD00A03E77 /* AppCoordinator.swift in Sources */,
+				893EA3E1230D1AE900A03E77 /* SetupViewModel.swift in Sources */,
 				893EA3DE230D0C7300A03E77 /* SetupViewController.swift in Sources */,
 				893EA3AA23092DF900A03E77 /* MapViewController.swift in Sources */,
 				893EA3AE230935E200A03E77 /* Coordinator.swift in Sources */,
