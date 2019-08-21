@@ -7,37 +7,66 @@
 //
 
 import Foundation
+import CoreLocation
 
 protocol MapViewModelDelegate : AnyObject {
+    /// Called when new remarks are ready to be displayed
     func didChangeRemarks()
+    /// Called when an error happens during API calls
     func didEncounterError(description: String)
+    /// Called when the user's location changes
+    func userDidChangeLocation()
+    /// Called as the refresh API call start
+    func didStartRefreshing()
+    /// Called as the refresh API call finish
+    func didEndRefreshing()
 }
 
 /// The View Model to provide data to the MapViewController.
 class MapViewModel {
     /// Initialisation requires the username
-    init(username: String) {
+    init(username: String, service: Service = APIService()) {
         self.username = username
+        self.service = service
+        LocationManager.sharedLocationManager.delegate = self
     }
     /// The current username
     var username: String
     /// A list of the remarks to display
     var currentRemarks: [Remark] = []
     /// The service that will be used to perform remote API updates.
-    var service = APIService()
+    var service: Service
+    /// Return the user's current location or nil if not known.
+    var userLocation: CLLocationCoordinate2D? {
+        return LocationManager.sharedLocationManager.currentLocation
+    }
 
     weak var delegate: MapViewModelDelegate?
     
     /// Called when the VC needs refreshed data from the server
     func refresh() {
+        delegate?.didStartRefreshing()
         service.listAll { [weak self] result in
-            switch (result) {
-            case .failure(_):
-                self?.delegate?.didEncounterError(description: "Could not retrieve data")
-            case .success(let remarks):
-                self?.currentRemarks = remarks
-                self?.delegate?.didChangeRemarks()
+            // Ensure we are in the UI thread
+            DispatchQueue.main.async {
+                // Signal finishing load
+                self?.delegate?.didEndRefreshing()
+                // Send through results
+                switch (result) {
+                case .failure(_):
+                    self?.delegate?.didEncounterError(description: "Could not retrieve data")
+                case .success(let remarks):
+                    self?.currentRemarks = remarks
+                    self?.delegate?.didChangeRemarks()
+                }
             }
         }
+    }
+}
+
+/// Delegate call to track when the user has moved.
+extension MapViewModel: LocationManagerDelegate {
+    func didUpdateLocation() {
+        delegate?.userDidChangeLocation()
     }
 }

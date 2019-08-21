@@ -11,12 +11,18 @@ import CoreLocation
 
 // Tracks the user's current location, hiding CoreLocation's complexities.
 
+protocol LocationManagerDelegate: AnyObject {
+    // Called when the location changes
+    func didUpdateLocation()
+}
+
 class LocationManager: NSObject {
     let locationManager = CLLocationManager()
 
     // A default location manager, shared so it can be used across the app to observe the current location as necessary.
     static let sharedLocationManager = LocationManager()
 
+    weak var delegate: LocationManagerDelegate?
     var currentLocation: CLLocationCoordinate2D?
 
     /// Function needs to be called to start tracking the user
@@ -31,16 +37,16 @@ class LocationManager: NSObject {
     var coreLocationAccessWasDenied = {
         return CLLocationManager.authorizationStatus() == .denied
     }
-
 }
 
 // MARK: CLLocationManagerDelegate
 
 extension LocationManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        // If the location has changed, update the underlying object and let the delegate know.
         if let location = locations.last {
             currentLocation = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+            delegate?.didUpdateLocation()
         }
     }
-    
 }

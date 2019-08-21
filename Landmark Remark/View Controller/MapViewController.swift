@@ -12,39 +12,85 @@ import CoreLocation
 
 class MapViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
-    
+    @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var reloadButton: UIButton!
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var jumpToLocationButton: UIButton!
+
     var viewModel: MapViewModel?
-    let locationManager = LocationManager.sharedLocationManager
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        locationManager.startCoreLocation()
+        // Ensure core location is started now, so the request is seen on this screen.
+        LocationManager.sharedLocationManager.startCoreLocation()
 
         mapView?.delegate = self
         
-        
         // View Model Setup
         viewModel?.delegate = self
-        // viewModel.refresh() TODO
+        viewModel?.refresh()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
 
+    // MARK: Show 'refreshing' state in UI
+    
+    func startRefreshingUI() {
+        searchBar.isUserInteractionEnabled = false
+        mapView.isUserInteractionEnabled = false
+        addButton.isEnabled = false
+        reloadButton.isEnabled = false
+        jumpToLocationButton.isEnabled = false
+        activityIndicator.startAnimating()
+    }
+    
+    func finishRefreshingUI() {
+        searchBar.isUserInteractionEnabled = true
+        mapView.isUserInteractionEnabled = true
+        addButton.isEnabled = true
+        reloadButton.isEnabled = true
+        jumpToLocationButton.isEnabled = true
+        activityIndicator.stopAnimating()
+    }
     
     // MARK: IBActions
 
+    // Reload button
     @IBAction func reloadPressed(_ sender: Any) {
         // Ask the VM to refresh the service data
         viewModel?.refresh()
     }
     
+    // Plus button pressed
     @IBAction func addPressed(_ sender: Any) {
+        // Ensure we know where the user is
+        guard let userLocation = viewModel?.userLocation else {
+            // TODO - show error
+            return
+        }
         // Call the coordinator to show the prompt to add a note
         let addNoteCoordinator = AddNoteCoordinator(parentViewController: self)
         addNoteCoordinator.start()
+    }
+    
+    // Called when the user presses the compass icon
+    @IBAction func jumpToLocationPressed(_ sender: Any) {
+        // Ensure we know where the user is
+        guard let userLocation = viewModel?.userLocation else {
+            // TODO - show error
+            return
+        }
+        guard let locationAnnotation = mapView.annotations.first(where: { $0 is UserLocationAnnotation}) else {
+            print("not found!")
+            return
+        }
+        
+        mapView.showAnnotations([locationAnnotation], animated: true)
+        print("found")
     }
 }
 
@@ -52,7 +98,7 @@ class AnnotationView: MKAnnotationView {
 }
 
 class UserLocationAnnotation: NSObject, MKAnnotation, PinStyleContainer {
-    var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: -33, longitude: 151)
+    var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
     var title: String? = "This is where you are"
     var subtitle: String? = nil
 }
@@ -92,17 +138,48 @@ extension MapViewController : MKMapViewDelegate {
 // MARK: MapViewModelDelegate
 
 extension MapViewController : MapViewModelDelegate {
+    // Show the user we are refreshing UI
+    func didStartRefreshing() {
+        startRefreshingUI()
+    }
+    // Set the UI back to normal
+    func didEndRefreshing() {
+        finishRefreshingUI()
+    }
     func didChangeRemarks() {
         // TODO - WIP
         guard let viewModel = viewModel else { return }
         mapView.removeAnnotations(mapView.annotations)
-        mapView.addAnnotations([UserLocationAnnotation()])
+        if let userLocation = viewModel.userLocation {
+            let userLocationAnnotation = UserLocationAnnotation()
+            userLocationAnnotation.coordinate = userLocation
+            mapView.addAnnotation(userLocationAnnotation)
+        }
         mapView.addAnnotations(viewModel.currentRemarks.asAnnotations())
+        mapView.showAnnotations(mapView.annotations, animated: true)
     }
     
     func didEncounterError(description: String) {
         // TODO - WIP
     }
+    
+    func userDidChangeLocation() {
+        // Ensure we have a valid current location
+        guard let userLocation = viewModel?.userLocation else {
+            return
+        }
+        // Remove any existing annotations
+        let oldLocationAnnotation = mapView.annotations.first(where: { $0 is UserLocationAnnotation})
+        if let oldLocationAnnotation = oldLocationAnnotation {
+            mapView.removeAnnotation(oldLocationAnnotation)
+        }
+
+        // Add the location again, to update it.
+        let userLocationAnnotation = UserLocationAnnotation()
+        userLocationAnnotation.coordinate = userLocation
+        mapView.addAnnotation(userLocationAnnotation)
+    }
+    
 }
 
 // MARK: Remark Utilities

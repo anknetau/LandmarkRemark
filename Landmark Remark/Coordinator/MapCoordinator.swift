@@ -8,8 +8,11 @@
 
 import UIKit
 
+/// Coordinator to display the map
+
 struct MapCoordinator: Coordinator {
     var parentViewController: UIViewController
+    /// Username to use in it
     var username: String
     init(parentViewController: UIViewController, username: String) {
         self.parentViewController = parentViewController
