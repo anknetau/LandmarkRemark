@@ -48,10 +48,10 @@ Created by Andres N. Kievsky.
 5. This app requires swift 5 to run, as it uses the new Result type
 6. As the app is required to target iOS 10 and up, the more flexible MKMarkerAnnotationView (iOS 11+) cannot be used. Instead, the older pin-style annotation has been used.
 7. The app's device orientation is limited to portrait only.
-8. The app has only been tested in the simulator
-9. Obvious security issues exist with the unguarded API used - anyone on the internet with the right headers can make changes. In the real world, an auth system would be used, such as Auth0 or OAuth.
-10. URL construction is done quickly via string operations rather than the correct URLComponents/URLQueryItem method.
-11. Deleting a note should have an extra prompt, querying whether the user is certain they want to delete it.
-12. Testing was only done on simulator and one physical device.
+8. Obvious security issues exist with the unguarded API used - anyone on the internet with the right headers can make changes. In the real world, an auth system would be used, such as Auth0 or OAuth.
+9.  URL construction is done quickly via string operations rather than the correct URLComponents/URLQueryItem method.
+10. Deleting a note should have an extra prompt, querying whether the user is certain they want to delete it.
+11. Testing was done on simulator and one physical device.
+12. The app always retrieves all locations; this is not scalable and would need to be improved in a real product.
 13. No accessibility assessment or work was done, which would normally be a part of product development.
 
