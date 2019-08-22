@@ -25,19 +25,19 @@ Created by Andres N. Kievsky.
 
 1. Using a device's current location requires asking for access to location services. This access is required in order to use the app.
 2. Focus view: Displaying the user's location as well as other views implies functionality should exist to focus the map on one or the other.
-3. Results screen: searching for text implies the existence of a screen that can display a list of results, either on the map or in a separate list. A specific result can then be examined within the results.
+3. Results screen: searching for text implies the existence of a screen that can display a list of results, either on the map or in a separate list. A specific result can then be examined within the results. For this simple app, results are only shown on the map.
 4. Locality issues: a user may be interested in seeing results at the neighborhood level rather than a national or global level. Displaying both at the same time may trade resolution in the local level for completeness - and vice versa. Therefore, there's an expand button which will focus on all annotations, and a location (compass) button which will focus on the user's location.
-5. Sign up and login: each user has their own username, coupled with a password to access the system. Users should also be able to sign up within the app. For simplicity, the app has a single screen that allows the user to enter a device-only name. No signup or login has been implemented for this test.
+5. Sign up and login: each user has their own username, coupled with a password to access the system. Users should also be able to sign up within the app. For simplicity, the app has a single screen that allows the user to enter a device-only name. No sign up or login has been implemented for this test.
 6. Update and delete: Being able to merely list and add locations is rarely sufficient for a user, update/delete functionality should exist, too, so users are able to fix errors. Ownership of the note should be used as a simple way to control deletion access - however, in this simple implementation, editing is open.
 
 ## Time Log
 
-- UI: 8 hours
+- UI: 9 hours
 - Backend setup: 1 hour
-- Architecture: 3 hours
+- Architecture: 5 hours
 - API layer: 4 hours
 - Tests: 1 hour
-- **Total**: ~17 hours
+- **Total**: ~20 hours
 
 ## Known issues, limitations and possible improvements
 
@@ -52,4 +52,6 @@ Created by Andres N. Kievsky.
 9. Obvious security issues exist with the unguarded API used - anyone on the internet with the right headers can make changes. In the real world, an auth system would be used, such as Auth0 or OAuth.
 10. URL construction is done quickly via string operations rather than the correct URLComponents/URLQueryItem method.
 11. Deleting a note should have an extra prompt, querying whether the user is certain they want to delete it.
+12. Testing was only done on simulator and one physical device.
+13. No accessibility assessment or work was done, which would normally be a part of product development.
 

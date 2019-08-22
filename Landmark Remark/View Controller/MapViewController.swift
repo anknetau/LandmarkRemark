@@ -47,12 +47,6 @@ class MapViewController: UIViewController {
         searchController.searchBar.autocapitalizationType = .none
         
         viewForSearchBar.addSubview(searchController.searchBar)
-//        searchBar.delegate = self
-
-        // TODO
-        searchController
-//        searchController.searchBar = searchBar
-//        searchController.searchResultsUpdater = self
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -181,18 +175,6 @@ class MapViewController: UIViewController {
     // User wants to see all markers
     @IBAction func expandPressed(_ sender: Any) {
         mapView.showAnnotations(mapView.annotations, animated: true)
-    }
-}
-
-// MARK: UISearchBarDelegate
-extension MapViewController : UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-    }
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
-    }
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        // TODO
     }
 }
 

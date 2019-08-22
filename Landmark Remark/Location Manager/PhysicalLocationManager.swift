@@ -13,6 +13,7 @@ import CoreLocation
 
 class PhysicalLocationManager: NSObject, LocationManager {
     private let locationManager = CLLocationManager()
+    fileprivate var lastLocation: CLLocationCoordinate2D?
     
     weak var delegate: LocationManagerDelegate?
     
@@ -42,7 +43,11 @@ extension PhysicalLocationManager: CLLocationManagerDelegate {
         let closeLocations = locations.filter { $0.horizontalAccuracy < 20 }
         if let location = closeLocations.last {
             currentLocation = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-            delegate?.didUpdateLocation()
+            let changed = lastLocation?.latitude == currentLocation?.latitude && lastLocation?.longitude == currentLocation?.longitude
+            if changed {
+                lastLocation = currentLocation
+                delegate?.didUpdateLocation()
+            }
         }
     }
 }
